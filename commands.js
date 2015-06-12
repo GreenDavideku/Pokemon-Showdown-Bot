@@ -1639,6 +1639,15 @@ exports.commands = {
 			return this.say(con, room, "lo acher che bontà ♫");
 		}
 	},
+	conse: 'consecutio',
+	cinse: 'consecutio',
+	cobse: 'consecutio',
+	consecutio: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = "opss" + ["", "s", "ss", "sss"][Math.floor(Math.random() * 4)];
+			return this.say(con, room, text + " ho lasciato il pc acceso tutta notte");
+		}
+	},
 	duck: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "quack");
@@ -1662,6 +1671,25 @@ exports.commands = {
 	spec: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "vi muto tutti");
+		}
+	},
+	tricking: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			try {
+				var pokedex = require('./pokedex.js').BattlePokedex;
+				var formatsdata = require('./formats-data.js').BattleFormatsData;
+			} catch (e) {
+				return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
+			}
+			var pokemonArray = [];
+			for (var i in formatsdata) {
+				if (formatsdata[i].isNonstandard !== true) {
+					pokemonArray.push(pokedex[i].species);
+				}
+			}
+			var pokemon = pokemonArray[Math.floor(Math.random() * pokemonArray.length)];
+			var text = ["A critical hit!", "The opposing " + pokemon + " was frozen solid!", "The opposing " + pokemon + " is paralyzed! It can't move!"][Math.floor(Math.random() * 3)];
+			return this.say(con, room, text);
 		}
 	},
 	'3v': 'trev',
