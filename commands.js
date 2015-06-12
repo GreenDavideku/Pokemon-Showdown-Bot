@@ -1659,6 +1659,11 @@ exports.commands = {
 			return this.say(con, room, "basta con le pupazzate");
 		}
 	},
+	spec: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "vi muto tutti");
+		}
+	},
 	'3v': 'trev',
 	vvv: 'trev',
 	trev: function(arg, by, room, con) {
