@@ -1653,6 +1653,12 @@ exports.commands = {
 			return this.say(con, room, "quack");
 		}
 	},
+	ed: 'edgummet',
+	edgummet: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "soccontro");
+		}
+	},
 	infli: 'inflikted',
 	inflikted: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
