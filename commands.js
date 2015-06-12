@@ -1674,6 +1674,11 @@ exports.commands = {
 			return this.say(con, room, "basta con le pupazzate");
 		}
 	},
+	smilzo: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "mai na gioia");
+		}
+	},
 	spec: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "vi muto tutti");
