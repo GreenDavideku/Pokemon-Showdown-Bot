@@ -1633,18 +1633,17 @@ exports.commands = {
 		}
 	},
 	
+	
 	acher: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "lo acher che bontà ♫");
 		}
 	},
-	
 	duck: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "quack");
 		}
 	},
-	
 	infli: 'inflikted',
 	inflikted: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
@@ -1654,11 +1653,17 @@ exports.commands = {
 			return this.say(con, room, "ciao " + text);
 		}
 	},
-	
 	quas: 'quasar',
 	quasar: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "basta con le pupazzate");
+		}
+	},
+	'3v': 'trev',
+	vvv: 'trev',
+	trev: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "gioco di merda");
 		}
 	},
 	
