@@ -1648,6 +1648,12 @@ exports.commands = {
 			return this.say(con, room, text + " ho lasciato il pc acceso tutta notte");
 		}
 	},
+	dandi: 'queldandi',
+	queldandi: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "ma porca di quella");
+		}
+	},
 	duck: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "quack");
