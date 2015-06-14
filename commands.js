@@ -1709,6 +1709,12 @@ exports.commands = {
 			return this.say(con, room, text);
 		}
 	},
+	usy: 'uselesstrainer',
+	uselesstrainer: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "kek");
+		}
+	},
 	'3v': 'trev',
 	vvv: 'trev',
 	trev: function(arg, by, room, con) {
