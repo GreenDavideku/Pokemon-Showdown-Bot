@@ -1665,6 +1665,12 @@ exports.commands = {
 			return this.say(con, room, "soccontro");
 		}
 	},
+	fran: 'fran17',
+	'fran17': function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "ei ascolta questo pezzo è bella musica :)");
+		}
+	},
 	infli: 'inflikted',
 	inflikted: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
