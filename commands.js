@@ -832,6 +832,7 @@ exports.commands = {
 			return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
 		}
 		var pokemon = arg.split(',');
+		if (pokemon.length != 2) return this.say(con, room, 'Inserisci i due Pokémon separati da una virgola');
 		pokemon[0] = toId(pokemon[0]);
 		pokemon[1] = toId(pokemon[1]);
 		if (aliases[pokemon[0]]) pokemon[0] = toId(aliases[pokemon[0]]);
