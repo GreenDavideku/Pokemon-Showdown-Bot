@@ -1681,10 +1681,30 @@ exports.commands = {
 			return this.say(con, room, "ciao " + text);
 		}
 	},
+	milak: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "no Maria io esco");
+		}
+	},
 	quas: 'quasar',
 	quasar: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "basta con le pupazzate");
+		}
+	},
+	silver: 'silver97',
+	silver97: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			try {
+				var formats = require('./formats.js').Formats;
+			} catch (e) {
+				return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
+			}
+			var tiers = [];
+			for (var i in formats) {
+				if (formats[i].challengeShow != false) tiers.push(formats[i].name);
+			}
+			return this.say(con, room, "qualcuno mi passa un team " + tiers[Math.floor(Math.random() * tiers.length)].toLowerCase().replace(/[^a-z0-9 /]/g,""));
 		}
 	},
 	smilzo: function(arg, by, room, con) {
