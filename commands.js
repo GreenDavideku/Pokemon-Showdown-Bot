@@ -1672,6 +1672,11 @@ exports.commands = {
 			return this.say(con, room, "ei ascolta questo pezzo è bella musica :)");
 		}
 	},
+	haund: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "( ͡° ͜ʖ ͡°)");
+		}
+	},
 	infli: 'inflikted',
 	inflikted: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
