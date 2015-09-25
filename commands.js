@@ -1691,6 +1691,12 @@ exports.commands = {
 			return this.say(con, room, "ciao " + text);
 		}
 	},
+	lange: 'langee',
+	langee: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "Haund mi traduci questo post?");
+		}
+	},
 	milak: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "no Maria io esco");
