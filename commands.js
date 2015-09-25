@@ -1727,6 +1727,16 @@ exports.commands = {
 			return this.say(con, room, "vi muto tutti");
 		}
 	},
+	cul1: 'swculone',
+	kul1: 'swculone',
+	swcul1: 'swculone',
+	swkul1: 'swculone',
+	culone: 'swculone',
+	swculone: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "hue");
+		}
+	},
 	tricking: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			try {
