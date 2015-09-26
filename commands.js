@@ -1702,6 +1702,12 @@ exports.commands = {
 			return this.say(con, room, "no Maria io esco");
 		}
 	},
+	azyz: 'oizys',
+	oizys: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "no");
+		}
+	},
 	quas: 'quasar',
 	quasar: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
