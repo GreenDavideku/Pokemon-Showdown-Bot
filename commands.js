@@ -1632,6 +1632,14 @@ exports.commands = {
 		}
 	},
 	
+	shitpost: function(arg, by, room, con) {
+		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
+			this.say(con, room, "╔═╗░╗░╔░╦░╔╦╗░╔═╗░╔═╗░╔═╗░╔╦╗");
+			this.say(con, room, "╚═╗░╠═╣░║░░║░░╠═╝░║░║░╚═╗░░║░");
+			return this.say(con, room, "╚═╝░╝░╚░╩░░╩░░╝░░░╚═╝░╚═╝░░╩░");
+		}
+	},
+	
 	anagram: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			arg = ' ' + shuffle(arg.split("")).join("");
