@@ -109,6 +109,7 @@ global.colors = require('colors');
 global.shuffle = require('knuth-shuffle').knuthShuffle;
 
 global.update = Date.now();
+global.lastshitpost = 0;
 
 console.log('------------------------------------'.yellow);
 console.log('| Welcome to Pokemon Showdown Bot! |'.yellow);

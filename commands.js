@@ -1634,6 +1634,8 @@ exports.commands = {
 	
 	shitpost: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
+			if (Date.now() - lastshitpost < 40000) return this.say(con, room, "Aspetta");
+			lastshitpost = Date.now();
 			var letters = {
 				a: [
 					"┌─┐",
