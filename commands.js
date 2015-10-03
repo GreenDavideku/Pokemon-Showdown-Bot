@@ -131,7 +131,11 @@ exports.commands = {
 		return this.say(con, room, 'Data files reloaded');
 	},
 	uptime: function(arg, by, room, con) {
-		if (config.excepts.indexOf(toId(by)) === -1) return false;
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = '';
+		} else {
+			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
+		}
 		
 		var uptime = Math.floor((Date.now() - update) / 1000);
 		var uptimeDays = Math.floor(uptime / (24 * 60 * 60));
