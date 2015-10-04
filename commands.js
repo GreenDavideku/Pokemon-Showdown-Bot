@@ -1618,6 +1618,12 @@ exports.commands = {
 			return this.say(con, room, "https://parnassius.makes.org/thimble/NDg3MzI2MjA4/ps-showrenames_");
 		}
 	},
+	iconsuserlist: 'userlisticons',
+	userlisticons: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "http://www.smogon.com/forums/threads/userlist-icons-stylish.3551505/");
+		}
+	},
 	
 	guida: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
