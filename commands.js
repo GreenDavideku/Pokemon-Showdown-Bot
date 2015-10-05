@@ -596,6 +596,40 @@ exports.commands = {
 		
 	},*/
 	
+	sprite: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = '';
+		}
+		else {
+			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
+		}
+		try {
+			var pokedex = require('./pokedex.js').BattlePokedex;
+			var aliases = require('./aliases.js').BattleAliases;
+		} catch (e) {
+			return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
+		}
+		arg = arg.toLowerCase().replace(/[^a-z0-9-,]/g,"").split(",");
+		var back = false;
+		var shiny = false;
+		var pokemon = '';
+		for (var i in arg) {
+			if (arg[i] == 'back') back = true;
+			else if (arg[i] == 'shiny') shiny = true;
+			else {
+				if (aliases[toId(arg[i])]) arg[i] = aliases[arg[i]].toLowerCase().replace(/[^a-z0-9-]/g,"");
+				if (pokedex[toId(arg[i])]) pokemon = arg[i].toLowerCase().replace(/[^a-z0-9-]/g,"");
+			}
+		}
+		if (!pokemon) return this.say(con, room, "Pokemon non trovato");
+		text = "https://psim.us/sprites/xyani";
+		if (back) text += "-back";
+		if (shiny) text += "-shiny";
+		text += "/";
+		text += pokemon;
+		text += ".gif";
+		return this.say(con, room, text);
+	},
 	
     gen: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
