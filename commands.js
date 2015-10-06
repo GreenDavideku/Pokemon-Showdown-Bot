@@ -1652,6 +1652,11 @@ exports.commands = {
 			return this.say(con, room, "https://parnassius.makes.org/thimble/NDg3MzI2MjA4/ps-showrenames_");
 		}
 	},
+	youtubelinktitle: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "https://greasyfork.org/en/scripts/413-youtube-link-title");
+		}
+	},
 	iconsuserlist: 'userlisticons',
 	userlisticons: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
