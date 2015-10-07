@@ -2190,10 +2190,10 @@ exports.commands = {
 	spagueti: function(arg, by, room, con) {
 		if (room.charAt(0) !== ',') return false;
 		by = toId(by);
-		var ro = ['parnassius', 'test2017', 'thequasar'];
+		var ro = ['duck', 'infikted', 'parnassius'];
 		var staff = ro.concat(
-			'consecutio', 'edgummet', 'haund', 'safes', 'silver97', 'smilzo', 'trev', 'uselesstrainer',
-			'abry', 'alexander', 'bionzella', 'galbia', 'l0ne', 'puralux', 'queldandi', 'slimmer', 'specn', 'tricking'
+			'edgummet', 'galbia', 'haund', 'l0ne', 'safes', 'silver97', 'smilzo', 'trev', 'uselesstrainer',
+			'abry', 'alexander', 'bionzella', 'fran17', 'lange', 'milak', 'puralux', 'queldandi', 'slimmer', 'specn', 'swculone', 'tricking'
 		);
 		if (ro.indexOf(by) < 0) return;
 		staff.splice(staff.indexOf(by), 1);
