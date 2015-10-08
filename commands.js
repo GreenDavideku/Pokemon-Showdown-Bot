@@ -137,19 +137,22 @@ exports.commands = {
 			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
 		}
 		
-		var uptime = Math.floor((Date.now() - update) / 1000);
-		var uptimeDays = Math.floor(uptime / (24 * 60 * 60));
-		uptime -= uptimeDays * (24 * 60 * 60);
-		var uptimeHours = Math.floor(uptime / (60 * 60));
-		uptime -= uptimeHours * (60 * 60);
-		var uptimeMinutes = Math.floor(uptime / 60);
-		var uptimeSeconds = uptime - uptimeMinutes * 60;
+		var uptime = Math.floor((Date.now() - update));
+		var uptimeDays = Math.floor(uptime / (24 * 60 * 60 * 1000));
+		uptime -= uptimeDays * (24 * 60 * 60 * 1000);
+		var uptimeHours = Math.floor(uptime / (60 * 60 * 1000));
+		uptime -= uptimeHours * (60 * 60 * 1000);
+		var uptimeMinutes = Math.floor(uptime / (60 * 1000));
+		uptime -= uptimeMinutes * (60 * 1000);
+		var uptimeSeconds = Math.floor(uptime / (1000));
+		var uptimeMilliseconds = uptime - uptimeSeconds * (1000);
 		
 		var uptimeText = "Uptime: ";
 		if (uptimeDays > 0) uptimeText += uptimeDays + " " + (uptimeDays === 1 ? "day" : "days") + ", ";
 		if (uptimeDays > 0 || uptimeHours > 0) uptimeText += uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours") + ", ";
 		if (uptimeDays > 0 || uptimeHours > 0 || uptimeMinutes > 0) uptimeText += uptimeMinutes + " " + (uptimeMinutes === 1 ? "minute" : "minutes") + ", ";
-		uptimeText += uptimeSeconds + " " + (uptimeSeconds === 1 ? "second" : "seconds");
+		uptimeText += uptimeSeconds + " " + (uptimeSeconds === 1 ? "second" : "seconds") + ", ";
+		uptimeText += uptimeMilliseconds + " " + (uptimeMilliseconds === 1 ? "millisecond" : "millisecond");
 		
 		return this.say(con, room, uptimeText);
 	},
