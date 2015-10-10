@@ -1660,6 +1660,7 @@ exports.commands = {
 			return this.say(con, room, "https://greasyfork.org/en/scripts/413-youtube-link-title");
 		}
 	},
+	icons: 'userlisticons',
 	iconsuserlist: 'userlisticons',
 	userlisticons: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
