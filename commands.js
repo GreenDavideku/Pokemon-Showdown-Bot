@@ -1668,12 +1668,6 @@ exports.commands = {
 		}
 	},
 	
-	guida: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "Comandi -> https://parnassius.makes.org/thimble/LTExMzE4MDE2MA==/guida-cerbottana_");
-		}
-	},
-	
 	memes: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			var memes = [
