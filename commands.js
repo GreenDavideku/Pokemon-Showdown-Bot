@@ -1,4 +1,5 @@
-﻿/**
+﻿		var pokemon = '';
+/**
  * This is the file where the bot commands are located
  *
  * @license MIT license
@@ -613,11 +614,21 @@ exports.commands = {
 			return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
 		}
 		arg = arg.toLowerCase().replace(/[^a-z0-9-,]/g,"").split(",");
+		var gens = {
+			'1': 'rby', '1gen': 'rby', 'gen1': 'rby', 'rby': 'rby',
+			'2': 'gsc', '2gen': 'gsc', 'gen2': 'gsc', 'gsc': 'gsc',
+			'3': 'rse', '3gen': 'rse', 'gen3': 'rse', 'rse': 'rse', 'adv': 'rse',
+			'4': 'dpp', '4gen': 'dpp', 'gen4': 'dpp', 'dpp': 'dpp',
+			'5': 'bw', '5gen': 'bw', 'gen5': 'bw', 'bw': 'bw', 'bw2': 'bw', 'b2w2': 'bw',
+			'6': 'xy', '6gen': 'xy', 'gen6': 'xy', 'xy': 'xy', 'oras': 'xy'
+		}
+		var gen = 'xy';
+		var ani = false;
 		var back = false;
 		var shiny = false;
-		var pokemon = '';
 		for (var i in arg) {
-			if (arg[i] == 'back') back = true;
+			if (gens[arg[i]]) gen = gens[arg[i]];
+			else if (arg[i] == 'back') back = true;
 			else if (arg[i] == 'shiny') shiny = true;
 			else {
 				if (aliases[toId(arg[i])]) arg[i] = aliases[arg[i]].toLowerCase().replace(/[^a-z0-9-]/g,"");
@@ -625,12 +636,21 @@ exports.commands = {
 			}
 		}
 		if (!pokemon) return this.say(con, room, "Pokemon non trovato");
-		text = "https://psim.us/sprites/xyani";
+		if (['bw', 'xy'].indexOf(gen) > -1) {
+			gen += 'ani';
+			ani = true;
+		}
+		text = "https://psim.us/sprites/";
+		text += gen;
 		if (back) text += "-back";
-		if (shiny) text += "-shiny";
+		if (shiny) {
+			if (gen === 'rby') return this.say(con, room, "In RBY non esistevano i Pokémon shiny");
+			text += "-shiny";
+		}
 		text += "/";
 		text += pokemon;
-		text += ".gif";
+		if (ani) text += ".gif";
+		else text += ".png";
 		return this.say(con, room, text);
 	},
 	
