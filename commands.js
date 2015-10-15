@@ -636,6 +636,13 @@ exports.commands = {
 			}
 		}
 		if (!pokemon) return this.say(con, room, "Pokemon non trovato");
+		if (aliases[pokemon]) pokemon = toId(aliases[pokemon]);
+		if (pokedex[pokemon]) {
+			if (pokedex[pokemon].num < 0 || (pokedex[pokemon].num > 151 && gen === 'rby') || (pokedex[pokemon].num > 251 && gen === 'gsc')
+				|| (pokedex[pokemon].num > 386 && gen === 'rse') || (pokedex[pokemon].num > 493 && gen === 'dpp')
+				|| (pokedex[pokemon].num > 649 && gen === 'bw')) return this.say(con, room, "Pokémon non trovato");
+		}
+		
 		if (['bw', 'xy'].indexOf(gen) > -1) {
 			gen += 'ani';
 			ani = true;
