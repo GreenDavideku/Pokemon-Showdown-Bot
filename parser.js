@@ -282,9 +282,8 @@ exports.parse = {
 				var room = this.room;
 				if (spl[2] === 'create' && config.tourwatchrooms.indexOf(toId(room)) > -1) {
 					var tier = spl[3];
-					var type = spl[4].toLowerCase();
 					if (config.tournotifroom && config.tournotifroom != '') {
-						this.say(connection, config.tournotifroom, 'Torneo ' + tier + ' ' + type + ' creato nella room <<' + room + '>>');
+						this.say(connection, config.tournotifroom, 'Torneo **' + tier + '** creato nella room <<' + room + '>>');
 					}
 				}
 				break;
