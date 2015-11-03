@@ -29,6 +29,14 @@ exports.rooms = ['example room name', 'another example'];
 // The bot will also avoid leaking the private rooms through .seen
 exports.privaterooms = [];
 
+// The bot will send a message into this room when a tour starts in one of the
+// rooms specified below.
+exports.tournotifrooms = '';
+
+// The tournament rooms that should be joined.
+// Commands won't work here.
+exports.tourwatchrooms = [];
+
 // The character text should start with to be seen as a command.
 // Note that using / and ! might be 'dangerous' since these are used in
 // Showdown itself.

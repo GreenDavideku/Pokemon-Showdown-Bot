@@ -50,7 +50,7 @@ exports.parse = {
 		if (message.indexOf('\n') > -1) {
 			var spl = message.split('\n');
 			for (var i = 0, len = spl.length; i < len; i++) {
-				if (spl[i].split('|')[1] && (spl[i].split('|')[1] === 'init' || spl[i].split('|')[1] === 'tournament')) {
+				if (spl[i].split('|')[1] && spl[i].split('|')[1] === 'init') {
 					this.room = '';
 					break;
 				}
@@ -200,6 +200,13 @@ exports.parse = {
 					}
 					cmds.push('|/join ' + room);
 				}
+				for (var i in config.tourwatchrooms) {
+					var room = toId(config.tourwatchrooms[i]);
+					if (room === 'lobby' && config.serverid === 'showdown') {
+						continue;
+					}
+					cmds.push('|/join ' + room);
+				}
 
 				var self = this;
 				if (cmds.length > 3) {
@@ -271,6 +278,16 @@ exports.parse = {
 				this.updateSeen(by, spl[1], this.room || 'lobby');
 				if (lastMessage) this.room = '';
 				break;
+			case 'tournament':
+				var room = this.room;
+				if (spl[2] === 'create' && config.tourwatchrooms.indexOf(toId(room)) > -1) {
+					var tier = spl[3];
+					var type = spl[4].toLowerCase();
+					if (config.tournotifroom && config.tournotifroom != '') {
+						this.say(connection, config.tournotifroom, 'Torneo ' + tier + ' ' + type + ' creato nella room <<' + room + '>>');
+					}
+				}
+				break;
 		}
 	},
 	chatMessage: function(message, by, room, connection) {
@@ -280,7 +297,7 @@ exports.parse = {
 		if (room.charAt(0) === ',' && message.substr(0,8) === '/invite ' && this.hasRank(by, '%@&~') && !(config.serverid === 'showdown' && toId(message.substr(8)) === 'lobby')) {
 			this.say(connection, '', '/join ' + message.substr(8));
 		}
-		if (message.substr(0, config.commandcharacter.length) !== config.commandcharacter || toId(by) === toId(config.nick)) {
+		if (message.substr(0, config.commandcharacter.length) !== config.commandcharacter || toId(by) === toId(config.nick) || config.tourwatchrooms.indexOf(toId(room)) > -1) {
 			return;
 		}
 
