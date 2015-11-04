@@ -626,6 +626,7 @@ exports.commands = {
 		var ani = false;
 		var back = false;
 		var shiny = false;
+		var pokemon = '';
 		for (var i in arg) {
 			if (gens[arg[i]]) gen = gens[arg[i]];
 			else if (arg[i] == 'back') back = true;
