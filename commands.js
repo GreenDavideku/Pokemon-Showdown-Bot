@@ -2102,12 +2102,6 @@ exports.commands = {
 			return this.say(con, room, "soccontro");
 		}
 	},
-	fran: 'fran17',
-	'fran17': function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "ei ascolta questo pezzo è bella musica :)");
-		}
-	},
 	haund: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "( ͡° ͜ʖ ͡°)");
@@ -2178,25 +2172,6 @@ exports.commands = {
 	swculone: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "hue");
-		}
-	},
-	tricking: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			try {
-				var pokedex = require('./pokedex.js').BattlePokedex;
-				var formatsdata = require('./formats-data.js').BattleFormatsData;
-			} catch (e) {
-				return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
-			}
-			var pokemonArray = [];
-			for (var i in formatsdata) {
-				if (formatsdata[i].isNonstandard !== true) {
-					pokemonArray.push(pokedex[i].species);
-				}
-			}
-			var pokemon = pokemonArray[Math.floor(Math.random() * pokemonArray.length)];
-			var text = ["A critical hit!", "The opposing " + pokemon + " was frozen solid!", "The opposing " + pokemon + " is paralyzed! It can't move!"][Math.floor(Math.random() * 3)];
-			return this.say(con, room, text);
 		}
 	},
 	usy: 'uselesstrainer',
