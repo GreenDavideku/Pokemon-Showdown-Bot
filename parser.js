@@ -240,6 +240,7 @@ exports.parse = {
 				spl.splice(0, 3);
 				this.processChatData(by, this.room || 'lobby', connection, spl.join('|'));
 				if (this.room && this.isBlacklisted(toId(by), this.room)) this.say(connection, this.room, '/roomban ' + by + ', Blacklisted user');
+				if (this.room && this.room === 'italiano' && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
 				this.chatMessage(spl.join('|'), by, this.room || 'lobby', connection);
 				if (lastMessage) this.room = '';
 				break;
@@ -248,6 +249,7 @@ exports.parse = {
 				spl.splice(0, 4);
 				this.processChatData(by, this.room || 'lobby', connection, spl.join('|'));
 				if (this.room && this.isBlacklisted(toId(by), this.room)) this.say(connection, this.room, '/roomban ' + by + ', Blacklisted user');
+				if (this.room && this.room === 'italiano' && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
 				this.chatMessage(spl.join('|'), by, this.room || 'lobby', connection);
 				if (lastMessage) this.room = '';
 				break;
@@ -282,7 +284,7 @@ exports.parse = {
 				var room = this.room;
 				if (spl[2] === 'create' && config.tourwatchrooms.indexOf(toId(room)) > -1) {
 					var tier = spl[3];
-					if (config.tournotifroom && config.tournotifroom != '') {
+					if (config.tournotifroom && config.tournotifroom != '' && lastmessagetournotif > Date.now() - 10 * 60 * 1000) {
 						this.say(connection, config.tournotifroom, 'Torneo **' + tier + '** creato nella room <<' + room + '>>');
 					}
 				}
