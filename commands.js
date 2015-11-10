@@ -1,4 +1,3 @@
-﻿		var pokemon = '';
 /**
  * This is the file where the bot commands are located
  *
