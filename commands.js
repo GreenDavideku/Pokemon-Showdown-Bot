@@ -1664,8 +1664,6 @@ exports.commands = {
 		return this.say(con, room, text);
 	},
 	
-	usagestats: 'stats',
-	usage: 'stats',
 	stats: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "http://www.smogon.com/stats/2015-10/");
