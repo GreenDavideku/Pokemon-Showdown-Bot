@@ -1694,6 +1694,11 @@ exports.commands = {
 			return this.say(con, room, "http://www.smogon.com/forums/threads/userlist-icons-stylish.3551505/");
 		}
 	},
+	breakmyteam: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "https://dl.dropbox.com/u/9207945/rmt.html");
+		}
+	},
 	
 	memes: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
