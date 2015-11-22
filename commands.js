@@ -1699,6 +1699,11 @@ exports.commands = {
 			return this.say(con, room, "https://dl.dropbox.com/u/9207945/rmt.html");
 		}
 	},
+	checks: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "https://dl.dropbox.com/u/9207945/CompGen/Output/Compendiums_html/OU_Checks_All.html");
+		}
+	},
 	
 	mims: 'memes',
 	meme: 'memes',
