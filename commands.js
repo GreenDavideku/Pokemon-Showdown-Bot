@@ -868,9 +868,9 @@ exports.commands = {
 		
 		for (var i in trad) {
 			for (var j in trad[i]) {
-				if (trad[i][j].en.replace(/[^a-z0-9àèéìòù]/g,"") == parola) results.push({"trad": trad[i][j].it, "cat": i});
-				else if (aliasParola && trad[i][j].en.replace(/[^a-z0-9àèéìòù]/g,"") == aliasParola) results.push({"trad": trad[i][j].it, "cat": i});
-				else if (trad[i][j].it.replace(/[^a-z0-9àèéìòù]/g,"") == parola) results.push({"trad": trad[i][j].en, "cat": i});
+				if (trad[i][j].en.toLowerCase().replace(/[^a-z0-9àèéìòù]/g,"") == parola) results.push({"trad": trad[i][j].it, "cat": i});
+				else if (aliasParola && trad[i][j].en.toLowerCase().replace(/[^a-z0-9àèéìòù]/g,"") == aliasParola) results.push({"trad": trad[i][j].it, "cat": i});
+				else if (trad[i][j].it.toLowerCase().replace(/[^a-z0-9àèéìòù]/g,"") == parola) results.push({"trad": trad[i][j].en, "cat": i});
 			}
 		}
 		
