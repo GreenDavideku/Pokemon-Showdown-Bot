@@ -1670,6 +1670,13 @@ exports.commands = {
 		}
 	},
 	
+	help: 'faq',
+	faq: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "https://showdownitalia.wordpress.com/help/");
+		}
+	},
+	
 	renames: 'showrenames',
 	showrenames: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
