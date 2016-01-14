@@ -1670,12 +1670,6 @@ exports.commands = {
 		}
 	},
 	
-	seasonal: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "https://parnassius.makes.org/thimble/ODQyNDAwMjU2/ps-seasonal_");
-		}
-	},
-	
 	renames: 'showrenames',
 	showrenames: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
