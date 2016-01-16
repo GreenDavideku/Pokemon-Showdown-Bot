@@ -1664,6 +1664,68 @@ exports.commands = {
 		return this.say(con, room, text);
 	},
 	
+	sampleteams: 'teams',
+	teams: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = '';
+		}
+		else {
+			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
+		}
+		arg = toId(arg);
+		switch (arg) {
+			case "overused":
+			case "ou":
+				text += 'http://www.smogon.com/forums/threads/3551209/';
+				break;
+			case "uber":
+			case "ubers":
+				text += 'http://www.smogon.com/forums/threads/3550998/';
+				break;
+			case "underused":
+			case "uu":
+				text += 'http://www.smogon.com/forums/threads/3536731/';
+				break;
+			case "rarelyused":
+			case "ru":
+				text += 'http://www.smogon.com/forums/threads/3551316/';
+				break;
+			case "neverused":
+			case "nu":
+				text += 'http://www.smogon.com/forums/threads/3548150/';
+				break;
+			case "pu":
+				text += 'http://www.smogon.com/forums/threads/3540949/';
+				break;
+			case "littlecup":
+			case "lc":
+				text += 'http://www.smogon.com/forums/threads/3554452/';
+				break;
+			case "anythinggoes":
+			case "ag":
+				text += 'http://sampleom.weebly.com/anything-goes.html';
+				break;
+			case "doublesou":
+			case "doubles":
+			case "dou":
+				text += 'http://www.smogon.com/forums/threads/3548802/';
+				break;
+			case "vgc2016":
+			case "vgc16":
+			case "vgc":
+				text += 'http://nuggetbridge.com/forums/topic/21125-vgc-16-sample-teams-generation-showdown-posts-1-and-2/';
+				break;
+			case "oumonotype":
+			case "monotype":
+			case "mono":
+				text += 'http://monotypeps.weebly.com/sample-teams.html';
+				break;
+			default:
+				text += 'Inserisci una tier (OU, Ubers, UU, RU, NU, PU, LC, Anything Goes, Doubles OU, VGC, OU Monotype)';
+		}
+		return this.say(con, room, text);
+	},
+	
 	stats: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "http://www.smogon.com/stats/2015-12/");
