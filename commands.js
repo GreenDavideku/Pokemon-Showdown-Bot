@@ -2174,11 +2174,16 @@ exports.commands = {
 			return this.say(con, room, text2);
 		}
 	},
-	
 	anagram: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			arg = ' ' + shuffle(arg.split("")).join("");
 			return this.say(con, room, arg);
+		}
+	},
+	mangobay: function(arg, by, room, con) {
+		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
+			arg = ' ' + shuffle(arg.split("")).join("");
+			return this.say(con, room, "𝓜𝓪𝓷𝓰𝓸 𝓑𝓪𝔂 https://www.youtube.com/watch?v=yuyV6G6atoQ 𝓜𝓪𝓷𝓰𝓸 𝓑𝓪𝔂");
 		}
 	},
 	
