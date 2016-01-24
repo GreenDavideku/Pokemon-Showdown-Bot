@@ -1713,7 +1713,7 @@ exports.commands = {
 			case "vgc2016":
 			case "vgc16":
 			case "vgc":
-				text += 'http://nuggetbridge.com/forums/topic/21125-vgc-16-sample-teams-generation-showdown-posts-1-and-2/';
+				text += 'http://www.smogon.com/forums/threads/3561279/';
 				break;
 			case "oumonotype":
 			case "monotype":
