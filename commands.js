@@ -152,7 +152,7 @@ exports.commands = {
 		if (uptimeDays > 0 || uptimeHours > 0) uptimeText += uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours") + ", ";
 		if (uptimeDays > 0 || uptimeHours > 0 || uptimeMinutes > 0) uptimeText += uptimeMinutes + " " + (uptimeMinutes === 1 ? "minute" : "minutes") + ", ";
 		uptimeText += uptimeSeconds + " " + (uptimeSeconds === 1 ? "second" : "seconds") + ", ";
-		uptimeText += uptimeMilliseconds + " " + (uptimeMilliseconds === 1 ? "millisecond" : "millisecond");
+		uptimeText += uptimeMilliseconds + " " + (uptimeMilliseconds === 1 ? "millisecond" : "milliseconds");
 		
 		return this.say(con, room, uptimeText);
 	},
