@@ -284,7 +284,7 @@ exports.parse = {
 				var room = this.room;
 				if (spl[2] === 'create' && config.tourwatchrooms.indexOf(toId(room)) > -1) {
 					var tier = spl[3];
-					if (config.tournotifroom && config.tournotifroom != '' && lastmessagetournotif > Date.now() - 10 * 60 * 1000) {
+					if (config.tournotifroom && config.tournotifroom != '' && lastmessagetournotif > Date.now() - 4 * 60 * 1000) {
 						this.say(connection, config.tournotifroom, 'Torneo **' + tier + '** creato nella room <<' + room + '>>');
 					}
 				}
