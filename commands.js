@@ -945,15 +945,6 @@ exports.commands = {
 		this.say(con, room, text);
 	},
 	
-	priority: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = '';
-		}
-		else {
-			var text = '/pm ' + by + ', ';
-		}
-		return this.say(con, room, text + '.priority è stato rimosso; ora puoi usare /movesearch __pokemon__, priority+');
-	},
 	boosting: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			var text = '';
