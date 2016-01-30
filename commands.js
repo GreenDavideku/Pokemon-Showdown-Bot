@@ -996,15 +996,6 @@ exports.commands = {
 		if (text == '') text = 'Nessuna boosting move trovata';
 		this.say(con, room, text);
 	},
-	recovery: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = '';
-		}
-		else {
-			var text = '/pm ' + by + ', ';
-		}
-		return this.say(con, room, text + '.recovery è stato rimosso; ora puoi usare /movesearch __pokemon__, recovery');
-	},
 	mexican: 'status',
 	status: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
