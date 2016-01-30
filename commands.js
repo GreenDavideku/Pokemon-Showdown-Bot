@@ -1118,15 +1118,6 @@ exports.commands = {
 		if (text == '') text = 'Nessuna hazard trovata';
 		this.say(con, room, text);
 	},
-	typelearn: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = '';
-		}
-		else {
-			var text = '/pm ' + by + ', ';
-		}
-		return this.say(con, room, text + '.typelearn è stato rimosso; ora puoi usare /movesearch __pokemon__, __tipo__ (ad esempio /movesearch pikachu, electric type)');
-	},
 	ds: 'dexsearch',
 	dsearch: 'dexsearch',
 	dexsearch: function(arg, by, room, con) {
