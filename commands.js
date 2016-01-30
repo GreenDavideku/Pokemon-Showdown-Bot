@@ -1118,17 +1118,6 @@ exports.commands = {
 		if (text == '') text = 'Nessuna hazard trovata';
 		this.say(con, room, text);
 	},
-	ds: 'dexsearch',
-	dsearch: 'dexsearch',
-	dexsearch: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = '';
-		}
-		else {
-			var text = '/pm ' + by + ', ';
-		}
-		return this.say(con, room, text + '.dexsearch è stato rimosso, l\'unica funzione che aveva in più rispetto a /dexsearch ora è implementata anche lì (statistica > o < numero)');
-	},
 	stat: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			var text = '';
