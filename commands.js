@@ -291,9 +291,6 @@ exports.commands = {
 	broadcast: function(arg, by, room, con) {
 		return
 	},
-	spam: function(arg, by, room, con) {
-		return
-	},
 	
 	mon: 'randompoke',
 	randmon: 'randompoke',
@@ -1437,6 +1434,134 @@ exports.commands = {
 		}
 	},
 	
+	
+	acher: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "lo acher che bontà ♫");
+		}
+	},
+	conse: 'consecutio',
+	cinse: 'consecutio',
+	cobse: 'consecutio',
+	consecutio: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = "opss" + ["", "s", "ss", "sss"][Math.floor(Math.random() * 4)];
+			return this.say(con, room, text + " ho lasciato il pc acceso tutta notte");
+		}
+	},
+	dandi: 'queldandi',
+	queldandi: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "ma porca di quella");
+		}
+	},
+	duck: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "quack");
+		}
+	},
+	ed: 'edgummet',
+	edgummet: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "soccontro");
+		}
+	},
+	haund: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "( ͡° ͜ʖ ͡°)");
+		}
+	},
+	infli: 'inflikted',
+	inflikted: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			var text = "INFLIKTED".split("").sort(function(a, b) {
+				return Math.random() - 0.5;
+			}).join("");
+			return this.say(con, room, "ciao " + text);
+		}
+	},
+	lange: 'langee',
+	langee: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "Haund mi traduci questo post?");
+		}
+	},
+	milak: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "no Maria io esco");
+		}
+	},
+	azyz: 'oizys',
+	oizys: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "no");
+		}
+	},
+	quas: 'quasar',
+	quasar: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "basta con le pupazzate");
+		}
+	},
+	silver: 'silver97',
+	silver97: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			try {
+				var formats = require('./formats.js').Formats;
+			} catch (e) {
+				return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
+			}
+			var tiers = [];
+			for (var i in formats) {
+				if (formats[i].challengeShow != false) tiers.push(formats[i].name);
+			}
+			return this.say(con, room, "qualcuno mi passa un team " + tiers[Math.floor(Math.random() * tiers.length)].toLowerCase().replace(/[^a-z0-9 /]/g,""));
+		}
+	},
+	smilzo: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "mai na gioia");
+		}
+	},
+	spec: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "vi muto tutti");
+		}
+	},
+	cul1: 'swculone',
+	kul1: 'swculone',
+	swcul1: 'swculone',
+	swkul1: 'swculone',
+	culone: 'swculone',
+	swculone: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "hue");
+		}
+	},
+	usy: 'uselesstrainer',
+	uselesstrainer: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "kek");
+		}
+	},
+	'3v': 'trev',
+	vvv: 'trev',
+	trev: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "gioco di merda");
+		}
+	},
+	
+	/**
+	 * Spam commands
+	 *
+	 * Add custom commands here
+	 */
+	
+	spam: function(arg, by, room, con) {
+		return
+	},
+	
 	mims: 'memes',
 	meme: 'memes',
 	memes: function(arg, by, room, con) {
@@ -1853,124 +1978,6 @@ exports.commands = {
 	mangobay: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "𝓜𝓪𝓷𝓰𝓸 𝓑𝓪𝔂 https://www.youtube.com/watch?v=yuyV6G6atoQ 𝓜𝓪𝓷𝓰𝓸 𝓑𝓪𝔂");
-		}
-	},
-	
-	
-	acher: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "lo acher che bontà ♫");
-		}
-	},
-	conse: 'consecutio',
-	cinse: 'consecutio',
-	cobse: 'consecutio',
-	consecutio: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = "opss" + ["", "s", "ss", "sss"][Math.floor(Math.random() * 4)];
-			return this.say(con, room, text + " ho lasciato il pc acceso tutta notte");
-		}
-	},
-	dandi: 'queldandi',
-	queldandi: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "ma porca di quella");
-		}
-	},
-	duck: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "quack");
-		}
-	},
-	ed: 'edgummet',
-	edgummet: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "soccontro");
-		}
-	},
-	haund: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "( ͡° ͜ʖ ͡°)");
-		}
-	},
-	infli: 'inflikted',
-	inflikted: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			var text = "INFLIKTED".split("").sort(function(a, b) {
-				return Math.random() - 0.5;
-			}).join("");
-			return this.say(con, room, "ciao " + text);
-		}
-	},
-	lange: 'langee',
-	langee: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "Haund mi traduci questo post?");
-		}
-	},
-	milak: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "no Maria io esco");
-		}
-	},
-	azyz: 'oizys',
-	oizys: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "no");
-		}
-	},
-	quas: 'quasar',
-	quasar: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "basta con le pupazzate");
-		}
-	},
-	silver: 'silver97',
-	silver97: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			try {
-				var formats = require('./formats.js').Formats;
-			} catch (e) {
-				return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
-			}
-			var tiers = [];
-			for (var i in formats) {
-				if (formats[i].challengeShow != false) tiers.push(formats[i].name);
-			}
-			return this.say(con, room, "qualcuno mi passa un team " + tiers[Math.floor(Math.random() * tiers.length)].toLowerCase().replace(/[^a-z0-9 /]/g,""));
-		}
-	},
-	smilzo: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "mai na gioia");
-		}
-	},
-	spec: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "vi muto tutti");
-		}
-	},
-	cul1: 'swculone',
-	kul1: 'swculone',
-	swcul1: 'swculone',
-	swkul1: 'swculone',
-	culone: 'swculone',
-	swculone: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "hue");
-		}
-	},
-	usy: 'uselesstrainer',
-	uselesstrainer: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "kek");
-		}
-	},
-	'3v': 'trev',
-	vvv: 'trev',
-	trev: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "gioco di merda");
 		}
 	},
 };
