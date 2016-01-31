@@ -1996,6 +1996,7 @@ exports.commands = {
 					var quotes = this.settings.quotes[room];
 					if (quotes[arg]) {
 						quotes.splice(arg, 1);
+						this.writeSettings();
 						text = "Quote deleted";
 					}
 					else {
