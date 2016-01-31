@@ -240,7 +240,7 @@ exports.parse = {
 				spl.splice(0, 3);
 				this.processChatData(by, this.room || 'lobby', connection, spl.join('|'));
 				if (this.room && this.isBlacklisted(toId(by), this.room)) this.say(connection, this.room, '/roomban ' + by + ', Blacklisted user');
-				if (this.room && this.room === toId(config.tournotifroom) && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
+				if (this.room && (config.tournotifroom && this.room === toId(config.tournotifroom)) && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
 				this.chatMessage(spl.join('|'), by, this.room || 'lobby', connection);
 				if (lastMessage) this.room = '';
 				break;
@@ -249,7 +249,7 @@ exports.parse = {
 				spl.splice(0, 4);
 				this.processChatData(by, this.room || 'lobby', connection, spl.join('|'));
 				if (this.room && this.isBlacklisted(toId(by), this.room)) this.say(connection, this.room, '/roomban ' + by + ', Blacklisted user');
-				if (this.room && this.room === toId(config.tournotifroom) && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
+				if (this.room && (config.tournotifroom && this.room === toId(config.tournotifroom)) && by.substr(1) !== config.nick) lastmessagetournotif = Date.now();
 				this.chatMessage(spl.join('|'), by, this.room || 'lobby', connection);
 				if (lastMessage) this.room = '';
 				break;
