@@ -1978,6 +1978,7 @@ exports.commands = {
 	addquote: function(arg, by, room, con) {
 		if (this.canUse('spamadmin', room, by)) {
 			if (arg === '') return false;
+			arg = arg.replace('"', '\"');
 			if (!this.settings['quotes']) this.settings['quotes'] = {};
 			if (!this.settings.quotes[room]) this.settings.quotes[room] = [];
 			if (this.settings.quotes[room].indexOf(arg) > -1) return this.say(con, room, "Duplicate quote");
