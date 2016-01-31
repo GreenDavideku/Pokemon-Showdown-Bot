@@ -1973,30 +1973,4 @@ exports.commands = {
 			return this.say(con, room, "gioco di merda");
 		}
 	},
-	
-	spagueti: function(arg, by, room, con) {
-		if (room.charAt(0) !== ',') return false;
-		by = toId(by);
-		var ro = ['duck', 'infikted', 'parnassius'];
-		var staff = ro.concat(
-			'edgummet', 'galbia', 'haund', 'l0ne', 'safes', 'silver97', 'smilzo', 'trev', 'uselesstrainer',
-			'abry', 'alexander', 'bionzella', 'fran17', 'lange', 'milak', 'puralux', 'queldandi', 'slimmer', 'specn', 'swculone', 'tricking'
-		);
-		if (ro.indexOf(by) < 0) return;
-		staff.splice(staff.indexOf(by), 1);
-		
-		var text = "Riunione su spagueti -> http://spagueti.psim.us/";
-		if (arg.length > 300 - (text.length + 3)) return this.say(con, room, "Messaggio aggiuntivo troppo lungo");
-		text += (arg.length ? "(" + arg + ")" : "");
-		
-		this.say(con, room, "Invio messaggi in corso...");
-		var self = this;
-		function spampm() {
-			if (staff.length == 0) return self.say(con, room, "Messaggi consegnati");
-			self.say(con, '', "/pm " + staff[0] + ", " + text);
-			staff.shift();
-			setTimeout(spampm, 750);
-		}
-		spampm();
-	},
 };
