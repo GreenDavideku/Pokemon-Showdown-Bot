@@ -7,7 +7,9 @@ settings.json
 abilities.js
 aliases.js
 formats.js
+formats-data.js
 items.js
+learnsets.js
 learnsets-g6.js
 moves.js
 pokedex.js

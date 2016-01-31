@@ -126,7 +126,8 @@ exports.commands = {
 
 		var settable = {
 			broadcast: 1,
-			spam: 1
+			spam: 1,
+			spamadmin: 1
 		};
 		var modOpts = {
 			flooding: 1,
@@ -289,7 +290,7 @@ exports.commands = {
 	 */
 	
 	broadcast: function(arg, by, room, con) {
-		return
+		return;
 	},
 	
 	mon: 'randompoke',
@@ -1559,7 +1560,10 @@ exports.commands = {
 	 */
 	
 	spam: function(arg, by, room, con) {
-		return
+		return;
+	},
+	spamadmin: function(arg, by, room, con) {
+		return;
 	},
 	
 	mims: 'memes',
@@ -1969,6 +1973,75 @@ exports.commands = {
 			return this.say(con, room, text2);
 		}
 	},
+	
+	aq: 'addquote',
+	addquote: function(arg, by, room, con) {
+		if (this.canUse('spamadmin', room, by)) {
+			if (arg === '') return false;
+			if (!this.settings['quotes']) this.settings['quotes'] = {};
+			if (!this.settings.quotes[room]) this.settings.quotes[room] = [];
+			if (this.settings.quotes[room].indexOf(arg) > -1) return this.say(con, room, "Duplicate quote");
+			this.settings.quotes[room].push(arg);
+			this.writeSettings();
+			return this.say(con, room, "Quote added");
+		}
+	},
+	deletequote: function(arg, by, room, con) {
+		if (this.canUse('spamadmin', room, by)) {
+			if (arg === '') return false;
+			var text;
+			if (this.settings['quotes'] && this.settings.quotes[room]) {
+				arg = Number(arg);
+				if (!isNaN(arg) && arg % 1 === 0) {
+					var quotes = this.settings.quotes[room];
+					if (quotes[arg]) {
+						quotes.splice(arg, 1);
+						text = "Quote deleted";
+					}
+					else {
+						text = "Quote not found";
+					}
+				}
+				else {
+					text = "Insert a quote number";
+				}
+			}
+			else {
+				text = "No quotes found";
+			}
+			this.say(con, room, text);
+		}
+	},
+	q: 'quote',
+	quote: function(arg, by, room, con) {
+		if (this.canUse('spam', room, by)) {
+			var text;
+			if (this.settings['quotes'] && this.settings.quotes[room]) {
+				var quotes = this.settings.quotes[room];
+				text = quotes[Math.floor(Math.random() * quotes.length)];
+			}
+			else {
+				text = "No quotes found";
+			}
+			return this.say(con, room, text);
+		}
+	},
+	quotelist: function(arg, by, room, con) {
+		if (this.canUse('spam', room, by)) {
+			var text = '';
+			if (this.settings['quotes'] && this.settings.quotes[room]) {
+				var quotes = this.settings.quotes[room];
+				for (var i in quotes) {
+					text += i + '. ' + quotes[i] + '\n\n';
+				}
+			}
+			else {
+				text = "No quotes found";
+			}
+			this.uploadToHastebin(con, room, by, text, true);
+		}
+	},
+	
 	anagram: function(arg, by, room, con) {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			arg = ' ' + shuffle(arg.split("")).join("");

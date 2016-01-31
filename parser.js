@@ -343,7 +343,7 @@ exports.parse = {
 		var canUse = false;
 		var ranks = ' +%@&#~';
 		if (!this.settings[cmd] || !(room in this.settings[cmd])) {
-			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((cmd === 'autoban' || cmd === 'banword') ? '#' : config.defaultrank)));
+			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((cmd === 'spamadmin') ? '#' : config.defaultrank)));
 		} else if (this.settings[cmd][room] === true) {
 			canUse = true;
 		} else if (ranks.indexOf(this.settings[cmd][room]) > -1) {
@@ -367,7 +367,7 @@ exports.parse = {
 		delete this.settings.blacklist[room][user];
 		return true;
 	},
-	uploadToHastebin: function(con, room, by, toUpload) {
+	uploadToHastebin: function(con, room, by, toUpload, inChat) {
 		var self = this;
 
 		var reqOpts = {
@@ -378,7 +378,7 @@ exports.parse = {
 
 		var req = require('http').request(reqOpts, function(res) {
 			res.on('data', function(chunk) {
-				self.say(con, room, (room.charAt(0) === ',' ? "" : "/pm " + by + ", ") + "hastebin.com/raw/" + JSON.parse(chunk.toString())['key']);
+				self.say(con, room, (room.charAt(0) === ',' || inChat === true ? "" : "/pm " + by + ", ") + "hastebin.com/raw/" + JSON.parse(chunk.toString())['key']);
 			});
 		});
 
