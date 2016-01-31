@@ -456,21 +456,6 @@ exports.commands = {
 		text += types[Math.floor(Math.random()*types.length)];
 		this.say(con, room, text);
 	},
-	/*randomteam: function(arg, by, room, con) {
-		if (this.canUse('randomteam', room, by) || room.charAt(0) === ',') {
-				var text = '';
-		} else {
-			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
-		}
-		try {
-			var pokedex = require('./pokedex.js').BattlePokedex;
-			var formatsdata = require('./formats-data.js').BattleFormatsData;
-		} catch (e) {
-			return this.say(con, room, 'Si è verificato un errore: riprova fra qualche secondo.');
-		}
-		
-		
-	},*/
 	
 	sprite: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
