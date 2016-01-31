@@ -2029,7 +2029,9 @@ exports.commands = {
 						text = "Quote not found";
 					}
 				}
-				text = quotes[Math.floor(Math.random() * quotes.length)];
+				else {
+					text = quotes[Math.floor(Math.random() * quotes.length)];
+				}
 			}
 			else {
 				text = "No quotes found";
