@@ -50,11 +50,11 @@ exports.parse = {
 		if (message.indexOf('\n') > -1) {
 			var spl = message.split('\n');
 			for (var i = 0, len = spl.length; i < len; i++) {
-				if (spl[i].split('|')[1] && spl[i].split('|')[1] === 'init') {
+				this.message(spl[i], connection, i === len - 1);
+				if (spl[i].split('|')[1] && spl[i].split('|')[1] === 'users') {
 					this.room = '';
 					break;
 				}
-				this.message(spl[i], connection, i === len - 1);
 			}
 			return;
 		}
@@ -280,6 +280,14 @@ exports.parse = {
 				this.updateSeen(by, spl[1], this.room || 'lobby');
 				if (lastMessage) this.room = '';
 				break;
+			case 'users':
+				var userlist = spl[2].split(',').slice(1);
+				for (var i in userlist) {
+					if (toId(userlist[i]) === toId(config.nick)) {
+						this.ranks[this.room || 'lobby'] = userlist[i].charAt(0);
+					}
+				}
+				break;
 			case 'tournament':
 				var room = this.room;
 				if (spl[2] === 'create' && config.tourwatchrooms.indexOf(toId(room)) > -1) {
@@ -343,7 +351,7 @@ exports.parse = {
 		var canUse = false;
 		var ranks = ' +%@&#~';
 		if (!this.settings[cmd] || !(room in this.settings[cmd])) {
-			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((cmd === 'spamadmin') ? '#' : config.defaultrank)));
+			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((cmd in ['spamadmin', 'autoban']) ? '#' : config.defaultrank)));
 		} else if (this.settings[cmd][room] === true) {
 			canUse = true;
 		} else if (ranks.indexOf(this.settings[cmd][room]) > -1) {
@@ -352,20 +360,7 @@ exports.parse = {
 		return canUse;
 	},
 	isBlacklisted: function(user, room) {
-		return (this.settings.blacklist && this.settings.blacklist[room] && this.settings.blacklist[room][user]);
-	},
-	blacklistUser: function(user, room) {
-		if (!this.settings['blacklist']) this.settings['blacklist'] = {};
-		if (!this.settings.blacklist[room]) this.settings.blacklist[room] = {};
-
-		if (this.settings.blacklist[room][user]) return false;
-		this.settings.blacklist[room][user] = 1;
-		return true;
-	},
-	unblacklistUser: function(user, room) {
-		if (!this.isBlacklisted(user, room)) return false;
-		delete this.settings.blacklist[room][user];
-		return true;
+		return (this.settings.blacklist && this.settings.blacklist[room] && this.settings.blacklist[room].indexOf(user) > -1);
 	},
 	uploadToHastebin: function(con, room, by, toUpload, inChat) {
 		var self = this;
