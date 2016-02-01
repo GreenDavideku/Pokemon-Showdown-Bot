@@ -420,8 +420,8 @@ exports.parse = {
 			}
 			// moderation for banned words
 			if (useDefault || modSettings['bannedwords'] !== 0 && pointVal < 2) {
-				var banphraseSettings = this.settings.bannedphrases;
-				var bannedPhrases = !!banphraseSettings ? (Object.keys(banphraseSettings[room] || {})).concat(Object.keys(banphraseSettings['global'] || {})) : [];
+				var banphraseSettings = this.settings.banwords;
+				var bannedPhrases = !!banphraseSettings ? (banphraseSettings[room] || []) : [];
 				for (var i = 0; i < bannedPhrases.length; i++) {
 					if (msg.toLowerCase().indexOf(bannedPhrases[i]) > -1) {
 						pointVal = 2;

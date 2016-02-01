@@ -267,18 +267,68 @@ exports.commands = {
 	vab: 'viewblacklist',
 	viewblacklist: function(arg, by, room, con) {
 		if (this.canUse('autoban', room, by)) {
-			console.log("a");
 			var text = '';
-			if (this.settings['blacklist'] && this.settings.blacklist[room]) {
-				console.log("b");
+			if (this.settings['blacklist'] && this.settings.blacklist[room] && this.settings.blacklist[room].length > 0) {
 				var blacklist = this.settings.blacklist[room];
 				for (var i in blacklist) {
-					console.log("c");
 					text += blacklist[i] + '\n';
 				}
 			}
 			else {
-				return this.say(con, room, ("Blacklist is empty"));
+				return this.say(con, room, "/pm " + by + ", Blacklist is empty");
+			}
+			this.uploadToHastebin(con, room, by, text);
+		}
+	},
+	
+	banword: function(arg, by, room, con) {
+		if (this.canUse('banword', room, by)) {
+			arg = arg.toLowerCase();
+			if (arg === '') return false;
+			if (!this.settings['banwords']) this.settings['banwords'] = {};
+			if (!this.settings.banwords[room]) this.settings.banwords[room] = [];
+			if (this.settings.banwords[room].indexOf(arg) > -1) return this.say(con, room, "Already in banwords");
+			this.settings.banwords[room].push(arg);
+			this.writeSettings();
+			this.say(con, room, "/modnote " + arg + " was added to the banwords by " + by);
+			return this.say(con, room, arg + " added to the banwords");
+		}
+	},
+	unbanword: function(arg, by, room, con) {
+		if (this.canUse('banword', room, by)) {
+			arg = arg.toLowerCase();
+			if (arg === '') return false;
+			var text;
+			if (this.settings['banwords'] && this.settings.banwords[room]) {
+				var banwords = this.settings.banwords[room];
+				if (banwords.indexOf(arg) > -1) {
+					banwords.splice(banwords.indexOf(arg), 1);
+					this.writeSettings();
+					this.say(con, room, "/modnote " + arg + " was removed from the banwords by " + by);
+					text = arg + " removed from the banwords";
+				}
+				else {
+					text = "Banword not found";
+				}
+			}
+			else {
+				text = "Banword not found";
+			}
+			return this.say(con, room, text);
+		}
+	},
+	vbw: 'viewbanwords',
+	viewbanwords: function(arg, by, room, con) {
+		if (this.canUse('banword', room, by)) {
+			var text = '';
+			if (this.settings['banwords'] && this.settings.banwords[room] && this.settings.banwords[room].length > 0) {
+				var banwords = this.settings.banwords[room];
+				for (var i in banwords) {
+					text += banwords[i] + '\n';
+				}
+			}
+			else {
+				return this.say(con, room, "/pm " + by + ", Banword list is empty");
 			}
 			this.uploadToHastebin(con, room, by, text);
 		}
