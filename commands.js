@@ -269,7 +269,7 @@ exports.commands = {
 		if (this.canUse('autoban', room, by)) {
 			var text = '';
 			if (this.settings['blacklist'] && this.settings.blacklist[room] && this.settings.blacklist[room].length > 0) {
-				var blacklist = this.settings.blacklist[room];
+				var blacklist = this.settings.blacklist[room].sort();
 				for (var i in blacklist) {
 					text += blacklist[i] + '\n';
 				}
@@ -322,7 +322,7 @@ exports.commands = {
 		if (this.canUse('banword', room, by)) {
 			var text = '';
 			if (this.settings['banwords'] && this.settings.banwords[room] && this.settings.banwords[room].length > 0) {
-				var banwords = this.settings.banwords[room];
+				var banwords = this.settings.banwords[room].sort();
 				for (var i in banwords) {
 					text += banwords[i] + '\n';
 				}
