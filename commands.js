@@ -127,7 +127,8 @@ exports.commands = {
 		var settable = {
 			broadcast: 1,
 			spam: 1,
-			spamadmin: 1
+			spamadmin: 1,
+			blacklist: 1
 		};
 		var modOpts = {
 			flooding: 1,
@@ -220,68 +221,68 @@ exports.commands = {
  			}
  		}
  	},
-	/*autoban: 'blacklist',
-	ban: 'blacklist',
+	autoban: 'blacklist',
 	ab: 'blacklist',
 	blacklist: function(arg, by, room, con) {
-		if (!this.canUse('blacklist', room, user) || room.charAt(0) === ',') return false;
-
-		var e = '';
-		arg = toId(arg);
-		if (arg.length > 18) e ='Invalid username: names must be less than 19 characters long.';
-		if (!e && !this.hasRank(this.ranks[toId(room)] + config.nick, '@&#~')) e = config.nick + ' requires rank of @ or higher to (un)blacklist.';
-		if (!e) e = this.blacklistUser(arg, room);
-		if (!e) this.say(con, room, '/roomban ' + arg + ', Blacklisted user');
-		this.say(con, room, (e ? e : 'User "' + arg + '" added to blacklist successfully.'));
+		if (this.canUse('autoban', room, by)) {
+			arg = toId(arg);
+			if (arg === '') return false;
+			if (arg.length > 18) return this.say(con, room, "Invalid username: names must be less than 19 characters long");
+			if (!this.settings['blacklist']) this.settings['blacklist'] = {};
+			if (!this.settings.blacklist[room]) this.settings.blacklist[room] = [];
+			if (this.settings.blacklist[room].indexOf(arg) > -1) return this.say(con, room, "Already in blacklist");
+			this.settings.blacklist[room].push(arg);
+			this.writeSettings();
+			this.say(con, room, "/modnote " + arg + " was added to the blacklist by " + by);
+			return this.say(con, room, "/roomban " + arg + ", Blacklisted user");
+		}
 	},
 	unautoban: 'unblacklist',
-	unban: 'unblacklist',
 	unab: 'unblacklist',
 	unblacklist: function(arg, by, room, con) {
-		if (!this.canUse('blacklist', room, user) || room.charAt(0) === ',') return false;
-
-		var e = '';
-		arg = toId(arg);
-		if (arg.length > 18) e ='Invalid username: names must be less than 19 characters long';
-		if (!e && !this.hasRank(this.ranks[toId(room)] + config.nick, '@&#~')) e = config.nick + ' requires rank of @ or higher to (un)blacklist.';
-		if (!e) e = this.unblacklistUser(arg, room);
-		if (!e) this.say(con, room, '/roomunban ' + arg);
-		this.say(con, room, (e ? e : 'User "' + arg + '" removed from blacklist successfully.'));
-	},
-	viewbans: 'viewblacklist',
-	vab: 'viewblacklist',
-	viewautobans: 'viewblacklist',
-	viewblacklist: function(arg, by, room, con) {
-		if (!this.canUse('blacklist', room, user) || room.charAt(0) === ',') return false;
-
-		var text = '';
-		if (!this.settings.blacklist || !this.settings.blacklist[room]) {
-			text = 'No users are blacklisted in this room.';
-		} else {
-			var nickList = Object.keys(this.settings.blacklist[room]);
-			text = 'The following users are blacklisted: ' + nickList.join(', ');
-			if (text.length > 300) text = 'Too many users to list.';
-			if (!nickList.length) text = 'No users are blacklisted in this room.';
+		if (this.canUse('autoban', room, by)) {
+			arg = toId(arg);
+			if (arg === '') return false;
+			if (arg.length > 18) return this.say(con, room, "Invalid username: names must be less than 19 characters long");
+			var text;
+			if (this.settings['blacklist'] && this.settings.blacklist[room]) {
+				var blacklist = this.settings.blacklist[room];
+				if (blacklist.indexOf(arg) > -1) {
+					blacklist.splice(blacklist.indexOf(arg), 1);
+					this.writeSettings();
+					this.say(con, room, "/modnote " + arg + " was removed from the blacklist by " + by);
+					text = "/roomunban " + arg;
+				}
+				else {
+					text = "User not in blacklist";
+				}
+			}
+			else {
+				text = "User not in blacklist";
+			}
+			return this.say(con, room, text);
 		}
-		this.say(con, room, '/pm ' + by + ', ' + text);
 	},
-	banword: function(arg, by, room, con) {
-		if (!this.hasRank(by, '~')) return false;
-
-		if (!this.settings['bannedwords']) this.settings['bannedwords'] = {};
-		this.settings['bannedwords'][arg.trim().toLowerCase()] = 1;
-		this.writeSettings();
-		this.say(con, room, 'Word "' + arg.trim().toLowerCase() + '" banned.');
+	viewautobans: 'viewblacklist',
+	vab: 'viewblacklist',
+	viewblacklist: function(arg, by, room, con) {
+		if (this.canUse('autoban', room, by)) {
+			console.log("a");
+			var text = '';
+			if (this.settings['blacklist'] && this.settings.blacklist[room]) {
+				console.log("b");
+				var blacklist = this.settings.blacklist[room];
+				for (var i in blacklist) {
+					console.log("c");
+					text += blacklist[i] + '\n';
+				}
+			}
+			else {
+				return this.say(con, room, ("Blacklist is empty"));
+			}
+			this.uploadToHastebin(con, room, by, text);
+		}
 	},
-	unbanword: function(arg, by, room, con) {
-		if (!this.hasRank(by, '~')) return false;
-
-		if (!this.settings['bannedwords']) this.settings['bannedwords'] = {};
-		delete this.settings['bannedwords'][arg.trim().toLowerCase()];
-		this.writeSettings();
-		this.say(con, room, 'Word "' + arg.trim().toLowerCase() + '" unbanned.');
-	},*/
-
 
 	/**
 	 * General commands
@@ -1978,7 +1979,6 @@ exports.commands = {
 	addquote: function(arg, by, room, con) {
 		if (this.canUse('spamadmin', room, by)) {
 			if (arg === '') return false;
-			arg = arg.replace('"', '\"');
 			if (!this.settings['quotes']) this.settings['quotes'] = {};
 			if (!this.settings.quotes[room]) this.settings.quotes[room] = [];
 			if (this.settings.quotes[room].indexOf(arg) > -1) return this.say(con, room, "Duplicate quote");
