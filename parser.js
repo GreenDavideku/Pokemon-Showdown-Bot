@@ -358,7 +358,7 @@ exports.parse = {
 		var canUse = false;
 		var ranks = ' +%@&#~';
 		if (!this.settings[cmd] || !(room in this.settings[cmd])) {
-			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((cmd in ['spamadmin', 'autoban', 'banword']) ? '#' : config.defaultrank)));
+			canUse = this.hasRank(user, ranks.substr(ranks.indexOf((['spamadmin', 'autoban', 'banword'].indexOf(cmd) > -1) ? '#' : config.defaultrank)));
 		} else if (this.settings[cmd][room] === true) {
 			canUse = true;
 		} else if (ranks.indexOf(this.settings[cmd][room]) > -1) {
