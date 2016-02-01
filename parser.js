@@ -304,9 +304,14 @@ exports.parse = {
 		message = message.trim();
 		// auto accept invitations to rooms
 		if (room.charAt(0) === ',' && message.substr(0,8) === '/invite ' && this.hasRank(by, '%@&~') && !(config.serverid === 'showdown' && toId(message.substr(8)) === 'lobby')) {
-			this.say(connection, '', '/join ' + message.substr(8));
+			return this.say(connection, '', '/join ' + message.substr(8));
 		}
-		if (message.substr(0, config.commandcharacter.length) !== config.commandcharacter || toId(by) === toId(config.nick) || config.tourwatchrooms.indexOf(toId(room)) > -1) {
+		var isCommand = message.substr(0, config.commandcharacter.length) === config.commandcharacter;
+		if (room.charAt(0) === ',' && !isCommand) {
+			by = by.substr(1);
+			return this.say(connection, room, 'Ciao ' + by + '! Se hai bisogno di qualcosa invia un PM a un altro membro dello staff, io sono solo un bot. | Hi ' + by + '! I am a bot, please PM another staff member if you need help.');
+		}
+		if (!isCommand || toId(by) === toId(config.nick) || config.tourwatchrooms.indexOf(toId(room)) > -1) {
 			return;
 		}
 
@@ -332,6 +337,8 @@ exports.parse = {
 				error("invalid command type for " + cmd + ": " + (typeof Commands[cmd]));
 			}
 		}
+		
+		
 	},
 	say: function(connection, room, text) {
 		if (room.substr(0, 1) !== ',') {
