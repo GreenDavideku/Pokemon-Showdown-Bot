@@ -424,7 +424,7 @@ exports.parse = {
 				for (var i = 0; i < bannedPhrases.length; i++) {
 					if (msg.toLowerCase().indexOf(bannedPhrases[i]) > -1) {
 						pointVal = 2;
-						muteMessage = ', Automated response: your message contained a banned phrase';
+						muteMessage = ', Questa rase/parola è bannata';
 						break;
 					}
 				}
@@ -436,7 +436,7 @@ exports.parse = {
 			if ((useDefault || modSettings['flooding'] !== false) && isFlooding) {
 				if (pointVal < 2) {
 					pointVal = 2;
-					muteMessage = ', Automated response: flooding';
+					muteMessage = ', Scrivi tutto in un messaggio';
 				}
 			}
 			// moderation for caps (over x% of the letters in a line of y characters are capital)
@@ -444,7 +444,7 @@ exports.parse = {
 			if ((useDefault || modSettings['caps'] !== false) && capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION))) {
 				if (pointVal < 1) {
 					pointVal = 1;
-					muteMessage = ', Automated response: caps';
+					muteMessage = ', Non scrivere tutto in maiuscolo';
 				}
 			}
 			// moderation for stretching (over x consecutive characters in the message are the same)
@@ -452,7 +452,7 @@ exports.parse = {
 			if ((useDefault || modSettings['stretching'] !== false) && stretchMatch) {
 				if (pointVal < 1) {
 					pointVal = 1;
-					muteMessage = ', Automated response: stretching';
+					muteMessage = ', Non scrivere così tante lettere uguali';
 				}
 			}
 
@@ -471,7 +471,7 @@ exports.parse = {
 				// if the bot has % and not @, it will default to hourmuting as its highest level of punishment instead of roombanning
 				if (chatData.points >= 4 && !this.hasRank(this.ranks[room] || ' ', '@&#~')) cmd = 'hourmute';
 				if (chatData.zeroTol > 4) { // if zero tolerance users break a rule they get an instant roomban or hourmute
-					muteMessage = ', Automated response: zero tolerance user';
+					muteMessage = ', Tolleranza zero';
 					cmd = this.hasRank(this.ranks[room] || ' ', '@&#~') ? 'roomban' : 'hourmute';
 				}
 				if (chatData.points >= 2) this.chatData[user].zeroTol++; // getting muted or higher increases your zero tolerance level (warns do not)
