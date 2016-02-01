@@ -412,14 +412,14 @@ exports.parse = {
 
 			// moderation for spamming "snen" multiple times on a line (a la the snen spammer)
 			var snenMatch = msg.toLowerCase().match(/snen/g);
-			if ((useDefault || modSettings['snen'] !== 0) && snenMatch && snenMatch.length > 6) {
+			if ((useDefault || modSettings['snen'] !== false) && snenMatch && snenMatch.length > 6) {
 				if (pointVal < 4) {
 					muteMessage = ', Automated response: possible "snen" spammer';
 					pointVal = (room === 'lobby') ? 5 : 4;
 				}
 			}
 			// moderation for banned words
-			if (useDefault || modSettings['bannedwords'] !== 0 && pointVal < 2) {
+			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 2) {
 				var banphraseSettings = this.settings.banwords;
 				var bannedPhrases = !!banphraseSettings ? (banphraseSettings[room] || []) : [];
 				for (var i = 0; i < bannedPhrases.length; i++) {
@@ -434,7 +434,7 @@ exports.parse = {
 			var times = chatData.times;
 			var isFlooding = (times.length >= FLOOD_MESSAGE_NUM && (time - times[times.length - FLOOD_MESSAGE_NUM]) < FLOOD_MESSAGE_TIME
 				&& (time - times[times.length - FLOOD_MESSAGE_NUM]) > (FLOOD_PER_MSG_MIN * FLOOD_MESSAGE_NUM));
-			if ((useDefault || modSettings['flooding'] !== 0) && isFlooding) {
+			if ((useDefault || modSettings['flooding'] !== false) && isFlooding) {
 				if (pointVal < 2) {
 					pointVal = 2;
 					muteMessage = ', Automated response: flooding';
@@ -442,7 +442,7 @@ exports.parse = {
 			}
 			// moderation for caps (over x% of the letters in a line of y characters are capital)
 			var capsMatch = msg.replace(/[^A-Za-z]/g, '').match(/[A-Z]/g);
-			if ((useDefault || modSettings['caps'] !== 0) && capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION))) {
+			if ((useDefault || modSettings['caps'] !== false) && capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION))) {
 				if (pointVal < 1) {
 					pointVal = 1;
 					muteMessage = ', Automated response: caps';
@@ -450,7 +450,7 @@ exports.parse = {
 			}
 			// moderation for stretching (over x consecutive characters in the message are the same)
 			var stretchMatch = msg.toLowerCase().match(/(.)\1{7,}/g) || msg.toLowerCase().match(/(..+)\1{4,}/g); // matches the same character (or group of characters) 8 (or 5) or more times in a row
-			if ((useDefault || modSettings['stretching'] !== 0) && stretchMatch) {
+			if ((useDefault || modSettings['stretching'] !== false) && stretchMatch) {
 				if (pointVal < 1) {
 					pointVal = 1;
 					muteMessage = ', Automated response: stretching';
