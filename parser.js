@@ -417,14 +417,6 @@ exports.parse = {
 			var muteMessage = '';
 			var modSettings = useDefault ? null : this.settings['modding'][room];
 
-			// moderation for spamming "snen" multiple times on a line (a la the snen spammer)
-			var snenMatch = msg.toLowerCase().match(/snen/g);
-			if ((useDefault || modSettings['snen'] !== false) && snenMatch && snenMatch.length > 6) {
-				if (pointVal < 4) {
-					muteMessage = ', Automated response: possible "snen" spammer';
-					pointVal = (room === 'lobby') ? 5 : 4;
-				}
-			}
 			// moderation for banned words
 			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 2) {
 				var banphraseSettings = this.settings.banwords;
