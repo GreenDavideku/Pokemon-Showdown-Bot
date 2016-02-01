@@ -2071,7 +2071,7 @@ exports.commands = {
 			if (this.settings['quotes'] && this.settings.quotes[room]) {
 				argN = Number(arg);
 				var quotes = this.settings.quotes[room];
-				if (!isNaN(argN) && argN % 1 === 0) {
+				if (arg !== '' && !isNaN(argN) && argN % 1 === 0) {
 					if (quotes[argN]) {
 						text = quotes[argN];
 					}
