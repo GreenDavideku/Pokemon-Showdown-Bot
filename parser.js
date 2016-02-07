@@ -424,7 +424,7 @@ exports.parse = {
 				for (var i = 0; i < bannedPhrases.length; i++) {
 					if (msg.toLowerCase().indexOf(bannedPhrases[i]) > -1) {
 						pointVal = 2;
-						muteMessage = ', Questa rase/parola è bannata';
+						muteMessage = ', Questa frase/parola è bannata';
 						break;
 					}
 				}
