@@ -26,7 +26,6 @@ exports.rooms = ['example room name', 'another example'];
 
 // Any private rooms that should be joined.
 // Private rooms will be moderated differently (since /warn doesn't work in them).
-// The bot will also avoid leaking the private rooms through .seen
 exports.privaterooms = [];
 
 // The bot will send a message into this room when a tour starts in one of the

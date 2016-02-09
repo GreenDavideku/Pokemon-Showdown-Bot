@@ -29,7 +29,6 @@ exports.parse = {
 	actionUrl: url.parse('https://play.pokemonshowdown.com/~~' + config.serverid + '/action.php'),
 	room: 'lobby',
 	'settings': settings,
-	chatData: {},
 	ranks: {},
 
 	data: function(data, connection) {
@@ -262,7 +261,6 @@ exports.parse = {
 				break;
 			case 'N':
 				var by = spl[2];
-				this.updateSeen(spl[3], spl[1], by);
 				if (toId(by) !== toId(config.nick) || ' +%@&#~'.indexOf(by.charAt(0)) === -1) return;
 				this.ranks[this.room || 'lobby'] = by.charAt(0);
 				if (lastMessage) this.room = '';
@@ -270,14 +268,12 @@ exports.parse = {
 			case 'J': case 'j':
 				var by = spl[2];
 				if (this.room && this.isBlacklisted(toId(by), this.room)) this.say(connection, this.room, '/roomban ' + by + ', Blacklisted user');
-				this.updateSeen(by, spl[1], this.room || 'lobby');
 				if (toId(by) !== toId(config.nick) || ' +%@&#~'.indexOf(by.charAt(0)) === -1) return;
 				this.ranks[this.room || 'lobby'] = by.charAt(0);
 				if (lastMessage) this.room = '';
 				break;
 			case 'l': case 'L':
 				var by = spl[2];
-				this.updateSeen(by, spl[1], this.room || 'lobby');
 				if (lastMessage) this.room = '';
 				break;
 			case 'users':
@@ -397,13 +393,9 @@ exports.parse = {
 		if (!user || room.charAt(0) === ',') return;
 		room = toId(room);
 		msg = msg.trim().replace(/[ \u0000\u200B-\u200F]+/g, " "); // removes extra spaces and null characters so messages that should trigger stretching do so
-		this.updateSeen(user, 'c', room);
 		var time = Date.now();
 		if (!this.settings.chatData) this.settings.chatData = {};
-		if (!this.settings.chatData[user]) this.settings.chatData[user] = {
-			lastSeen: '',
-			seenAt: time
-		};
+		if (!this.settings.chatData[user]) this.settings.chatData[user] = {};
 		var chatData = this.settings.chatData[user];
 		if (!chatData[room]) chatData[room] = {times:[], points:0, lastAction:0};
 		chatData = chatData[room];
@@ -479,37 +471,6 @@ exports.parse = {
 		}
 	},
 
-	updateSeen: function(user, type, detail) {
-		user = toId(user);
-		type = toId(type);
-		if (type !== 'n' && config.rooms.indexOf(detail) === -1 || config.privaterooms.indexOf(toId(detail)) > -1) return;
-		var time = Date.now();
-		if (!this.settings.chatData) this.settings.chatData = {};
-		if (!this.settings.chatData[user]) this.settings.chatData[user] = {
-			lastSeen: '',
-			seenAt: time
-		};
-		if (!detail) return;
-		var msg = '';
-		switch (type) {
-		case 'j':
-			msg += 'joining ';
-			break;
-		case 'l':
-			msg += 'leaving ';
-			break;
-		case 'c':
-			msg += 'chatting in ';
-			break;
-		case 'n':
-			msg += 'changing nick to ';
-			if (detail.charAt(0) !== ' ') detail = detail.substr(1);
-			break;
-		}
-		msg += detail.trim() + '.';
-		this.settings.chatData[user].lastSeen = msg;
-		this.settings.chatData[user].seenAt = time;
-	},
 	getTimeAgo: function(time) {
 		time = Date.now() - time;
 		time = Math.round(time/1000); // rounds to nearest second
