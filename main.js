@@ -146,6 +146,7 @@ global.cleanChatData = function(chatData) {
 			if (chatData[user][room].points > 0) chatData[user][room].points--;
 		}
 	}
+	Parse.writeSettings();
 	return chatData;
 };
 

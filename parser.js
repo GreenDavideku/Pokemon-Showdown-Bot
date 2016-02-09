@@ -226,7 +226,7 @@ exports.parse = {
 				}
 
 				this.chatDataTimer = setInterval(
-					function() {self.chatData = cleanChatData(self.chatData);},
+					function() {self.settings.chatData = cleanChatData(self.settings.chatData);},
 					30*60*1000
 				);
 				if (lastMessage) this.room = '';
@@ -399,11 +399,12 @@ exports.parse = {
 		msg = msg.trim().replace(/[ \u0000\u200B-\u200F]+/g, " "); // removes extra spaces and null characters so messages that should trigger stretching do so
 		this.updateSeen(user, 'c', room);
 		var time = Date.now();
-		if (!this.chatData[user]) this.chatData[user] = {
+		if (!this.settings.chatData) this.settings.chatData = {};
+		if (!this.settings.chatData[user]) this.settings.chatData[user] = {
 			lastSeen: '',
 			seenAt: time
 		};
-		var chatData = this.chatData[user];
+		var chatData = this.settings.chatData[user];
 		if (!chatData[room]) chatData[room] = {times:[], points:0, lastAction:0};
 		chatData = chatData[room];
 
@@ -483,7 +484,8 @@ exports.parse = {
 		type = toId(type);
 		if (type !== 'n' && config.rooms.indexOf(detail) === -1 || config.privaterooms.indexOf(toId(detail)) > -1) return;
 		var time = Date.now();
-		if (!this.chatData[user]) this.chatData[user] = {
+		if (!this.settings.chatData) this.settings.chatData = {};
+		if (!this.settings.chatData[user]) this.settings.chatData[user] = {
 			lastSeen: '',
 			seenAt: time
 		};
@@ -505,8 +507,8 @@ exports.parse = {
 			break;
 		}
 		msg += detail.trim() + '.';
-		this.chatData[user].lastSeen = msg;
-		this.chatData[user].seenAt = time;
+		this.settings.chatData[user].lastSeen = msg;
+		this.settings.chatData[user].seenAt = time;
 	},
 	getTimeAgo: function(time) {
 		time = Date.now() - time;
