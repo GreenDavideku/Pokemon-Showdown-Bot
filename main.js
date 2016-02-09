@@ -143,7 +143,7 @@ global.cleanChatData = function(chatData) {
 			}
 			newTimes.sort();
 			chatData[user][room].times = newTimes;
-			if (chatData[user][room].points > 0 && chatData[user][room].points < 4) chatData[user][room].points--;
+			if (chatData[user][room].points > 0) chatData[user][room].points--;
 		}
 	}
 	return chatData;

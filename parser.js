@@ -14,10 +14,10 @@ var url = require('url');
 
 const ACTION_COOLDOWN = 3*1000;
 const FLOOD_MESSAGE_NUM = 4;
-const FLOOD_PER_MSG_MIN = 500; // this is the minimum time between messages for legitimate spam. It's used to determine what "flooding" is caused by lag
+const FLOOD_PER_MSG_MIN = 250; // this is the minimum time between messages for legitimate spam. It's used to determine what "flooding" is caused by lag
 const FLOOD_MESSAGE_TIME = 6*1000;
 const MIN_CAPS_LENGTH = 10;
-const MIN_CAPS_PROPORTION = 0.8;
+const MIN_CAPS_PROPORTION = 0.7;
 
 settings = {};
 try {
@@ -400,7 +400,6 @@ exports.parse = {
 		this.updateSeen(user, 'c', room);
 		var time = Date.now();
 		if (!this.chatData[user]) this.chatData[user] = {
-			zeroTol: 0,
 			lastSeen: '',
 			seenAt: time
 		};
@@ -418,12 +417,12 @@ exports.parse = {
 			var modSettings = useDefault ? null : this.settings['modding'][room];
 
 			// moderation for banned words
-			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 2) {
+			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 3) {
 				var banphraseSettings = this.settings.banwords;
 				var bannedPhrases = !!banphraseSettings ? (banphraseSettings[room] || []) : [];
 				for (var i = 0; i < bannedPhrases.length; i++) {
 					if (msg.toLowerCase().indexOf(bannedPhrases[i]) > -1) {
-						pointVal = 2;
+						pointVal = 3;
 						muteMessage = ', Questa frase/parola è bannata';
 						break;
 					}
@@ -441,17 +440,20 @@ exports.parse = {
 			}
 			// moderation for caps (over x% of the letters in a line of y characters are capital)
 			var capsMatch = msg.replace(/[^A-Za-z]/g, '').match(/[A-Z]/g);
-			if ((useDefault || modSettings['caps'] !== false) && capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION))) {
-				if (pointVal < 1) {
-					pointVal = 1;
+			var isCaps = capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION));
+			if ((useDefault || modSettings['caps'] !== false) && isCaps) {
+				var isLongCaps = (toId(msg).length > MIN_CAPS_LENGTH * 2) ? true : false;
+				if (pointVal < 1 || (isLongCaps && pointVal < 2)) {
+					pointVal = isLongCaps ? 2 : 1;
 					muteMessage = ', Non scrivere tutto in maiuscolo';
 				}
 			}
 			// moderation for stretching (over x consecutive characters in the message are the same)
 			var stretchMatch = msg.toLowerCase().match(/(.)\1{7,}/g) || msg.toLowerCase().match(/(..+)\1{4,}/g); // matches the same character (or group of characters) 8 (or 5) or more times in a row
 			if ((useDefault || modSettings['stretching'] !== false) && stretchMatch) {
-				if (pointVal < 1) {
-					pointVal = 1;
+				isLongStretch = (stretchMatch.join("").length > 25) ? true : false;
+				if (pointVal < 1 || (isLongStretch && pointVal < 2)) {
+					pointVal = isLongStretch ? 2 : 1;
 					muteMessage = ', Non scrivere così tante lettere uguali';
 				}
 			}
@@ -470,11 +472,6 @@ exports.parse = {
 				if (config.privaterooms.indexOf(room) >= 0 && cmd === 'warn') cmd = 'mute'; // can't warn in private rooms
 				// if the bot has % and not @, it will default to hourmuting as its highest level of punishment instead of roombanning
 				if (chatData.points >= 4 && !this.hasRank(this.ranks[room] || ' ', '@&#~')) cmd = 'hourmute';
-				if (chatData.zeroTol > 4) { // if zero tolerance users break a rule they get an instant roomban or hourmute
-					muteMessage = ', Tolleranza zero';
-					cmd = this.hasRank(this.ranks[room] || ' ', '@&#~') ? 'roomban' : 'hourmute';
-				}
-				if (chatData.points >= 2) this.chatData[user].zeroTol++; // getting muted or higher increases your zero tolerance level (warns do not)
 				chatData.lastAction = time;
 				this.say(connection, room, '/' + cmd + ' ' + user + muteMessage);
 			}
@@ -487,7 +484,6 @@ exports.parse = {
 		if (type !== 'n' && config.rooms.indexOf(detail) === -1 || config.privaterooms.indexOf(toId(detail)) > -1) return;
 		var time = Date.now();
 		if (!this.chatData[user]) this.chatData[user] = {
-			zeroTol: 0,
 			lastSeen: '',
 			seenAt: time
 		};
