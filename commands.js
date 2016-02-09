@@ -73,7 +73,7 @@ exports.commands = {
 			return this.say(con, room, '/pm ' + by + ', Scrivimi il comando in PM.');
 		}
 		
-		var uptime = Math.floor((Date.now() - update));
+		var uptime = process.uptime() * 1000;
 		var uptimeDays = Math.floor(uptime / (24 * 60 * 60 * 1000));
 		uptime -= uptimeDays * (24 * 60 * 60 * 1000);
 		var uptimeHours = Math.floor(uptime / (60 * 60 * 1000));
@@ -88,7 +88,7 @@ exports.commands = {
 		if (uptimeDays > 0 || uptimeHours > 0) uptimeText += uptimeHours + " " + (uptimeHours === 1 ? "hour" : "hours") + ", ";
 		if (uptimeDays > 0 || uptimeHours > 0 || uptimeMinutes > 0) uptimeText += uptimeMinutes + " " + (uptimeMinutes === 1 ? "minute" : "minutes") + ", ";
 		uptimeText += uptimeSeconds + " " + (uptimeSeconds === 1 ? "second" : "seconds") + ", ";
-		uptimeText += uptimeMilliseconds + " " + (uptimeMilliseconds === 1 ? "millisecond" : "milliseconds");
+		uptimeText += "and " + uptimeMilliseconds + " " + (uptimeMilliseconds === 1 ? "millisecond" : "milliseconds");
 		
 		return this.say(con, room, uptimeText);
 	},

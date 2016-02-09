@@ -108,7 +108,6 @@ var sys = require('sys');
 global.colors = require('colors');
 global.shuffle = require('knuth-shuffle').knuthShuffle;
 
-global.update = Date.now();
 global.lastshitpost = 0;
 global.lastmessagetournotif = 0;
 
