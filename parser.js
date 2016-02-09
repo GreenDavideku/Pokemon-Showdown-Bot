@@ -471,30 +471,6 @@ exports.parse = {
 		}
 	},
 
-	getTimeAgo: function(time) {
-		time = Date.now() - time;
-		time = Math.round(time/1000); // rounds to nearest second
-		var seconds = time%60;
-		var times = [];
-		if (seconds) times.push(String(seconds) + (seconds === 1?' second':' seconds'));
-		var minutes, hours, days;
-		if (time >= 60) {
-			time = (time - seconds)/60; // converts to minutes
-			minutes = time%60;
-			if (minutes) times = [String(minutes) + (minutes === 1?' minute':' minutes')].concat(times);
-			if (time >= 60) {
-				time = (time - minutes)/60; // converts to hours
-				hours = time%24;
-				if (hours) times = [String(hours) + (hours === 1?' hour':' hours')].concat(times);
-				if (time >= 24) {
-					days = (time - hours)/24; // you can probably guess this one
-					if (days) times = [String(days) + (days === 1?' day':' days')].concat(times);
-				}
-			}
-		}
-		if (!times.length) times.push('0 seconds');
-		return times.join(', ');
-	},
 	writeSettings: (function() {
 		var writing = false;
 		var writePending = false; // whether or not a new write is pending
