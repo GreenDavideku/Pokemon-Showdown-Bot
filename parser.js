@@ -376,7 +376,7 @@ exports.parse = {
 
 		var req = require('http').request(reqOpts, function(res) {
 			res.on('data', function(chunk) {
-				self.say(con, room, (room.charAt(0) === ',' || inChat === true ? "" : "/pm " + by + ", ") + "hastebin.com/raw/" + JSON.parse(chunk.toString())['key']);
+				self.say(con, room, (room.charAt(0) === ',' || inChat === true ? "" : "/pm " + by + ", ") + "hastebin.com/" + JSON.parse(chunk.toString())['key'] + ".txt");
 			});
 		});
 
