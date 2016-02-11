@@ -376,7 +376,13 @@ exports.parse = {
 
 		var req = require('http').request(reqOpts, function(res) {
 			res.on('data', function(chunk) {
-				self.say(con, room, (room.charAt(0) === ',' || inChat === true ? "" : "/pm " + by + ", ") + "hastebin.com/" + JSON.parse(chunk.toString())['key'] + ".txt");
+				try {
+					var filename = JSON.parse(chunk.toString())['key'];
+				}
+				catch (e) {
+					return self.say(con, room, "Errore nell'upload su Hastebin");
+				}
+				return self.say(con, room, (room.charAt(0) === ',' || inChat === true ? "" : "/pm " + by + ", ") + "hastebin.com/" + filename + ".txt");
 			});
 		});
 
