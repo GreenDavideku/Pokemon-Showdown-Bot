@@ -440,7 +440,7 @@ exports.parse = {
 			}
 			// moderation for caps (over x% of the letters in a line of y characters are capital)
 			var capsMatch = msg.replace(/[^A-Za-z]/g, '').match(/[A-Z]/g);
-			var isCaps = capsMatch && toId(msg).length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION));
+			var isCaps = capsMatch && capsMatch.length > MIN_CAPS_LENGTH && (capsMatch.length >= Math.floor(toId(msg).length * MIN_CAPS_PROPORTION));
 			if ((useDefault || modSettings['caps'] !== false) && isCaps) {
 				var isLongCaps = (toId(msg).length > MIN_CAPS_LENGTH * 2) ? true : false;
 				if (pointVal < 1 || (isLongCaps && pointVal < 2)) {
