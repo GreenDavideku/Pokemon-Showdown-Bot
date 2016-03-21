@@ -542,7 +542,7 @@ exports.commands = {
 			else if (arg[i] == 'shiny') shiny = true;
 			else {
 				if (aliases[toId(arg[i])]) arg[i] = aliases[arg[i]].toLowerCase().replace(/[^a-z0-9-]/g,"");
-				if (pokedex[toId(arg[i])]) pokemon = arg[i].toLowerCase().replace(/[^a-z0-9-]/g,"");
+				if (pokedex[toId(arg[i])]) pokemon = pokedex[toId(arg[i])].species.toLowerCase().replace(/[^a-z0-9-]/g,"");
 			}
 		}
 		if (!pokemon) return this.say(con, room, "Pokemon non trovato");
