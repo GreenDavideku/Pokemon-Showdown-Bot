@@ -129,7 +129,9 @@ exports.commands = {
 			spam: 1,
 			spamadmin: 1,
 			autoban: 1,
-			banword: 1
+			viewautobans: 1,
+			banword: 1,
+			viewbanwords: 1
 		};
 		var modOpts = {
 			flooding: 1,
@@ -267,7 +269,7 @@ exports.commands = {
 	viewautobans: 'viewblacklist',
 	vab: 'viewblacklist',
 	viewblacklist: function(arg, by, room, con) {
-		if (this.canUse('autoban', room, by)) {
+		if (this.canUse('viewautobans', room, by)) {
 			var text = '';
 			if (this.settings['blacklist'] && this.settings.blacklist[room] && this.settings.blacklist[room].length > 0) {
 				var blacklist = this.settings.blacklist[room].sort();
@@ -320,7 +322,7 @@ exports.commands = {
 	},
 	vbw: 'viewbanwords',
 	viewbanwords: function(arg, by, room, con) {
-		if (this.canUse('banword', room, by)) {
+		if (this.canUse('viewbanwords', room, by)) {
 			var text = '';
 			if (this.settings['banwords'] && this.settings.banwords[room] && this.settings.banwords[room].length > 0) {
 				var banwords = this.settings.banwords[room].sort();
