@@ -129,6 +129,7 @@ exports.commands = {
 			spam: 1,
 			spamadmin: 1,
 			blacklist: 1,
+			autoban: 1,
 			banword: 1
 		};
 		var modOpts = {
@@ -225,7 +226,7 @@ exports.commands = {
 	autoban: 'blacklist',
 	ab: 'blacklist',
 	blacklist: function(arg, by, room, con) {
-		if (this.canUse('blacklist', room, by)) {
+		if (this.canUse('autoban', room, by)) {
 			arg = toId(arg);
 			if (arg === '') return false;
 			if (arg.length > 18) return this.say(con, room, "Invalid username: names must be less than 19 characters long");
@@ -241,7 +242,7 @@ exports.commands = {
 	unautoban: 'unblacklist',
 	unab: 'unblacklist',
 	unblacklist: function(arg, by, room, con) {
-		if (this.canUse('blacklist', room, by)) {
+		if (this.canUse('autoban', room, by)) {
 			arg = toId(arg);
 			if (arg === '') return false;
 			if (arg.length > 18) return this.say(con, room, "Invalid username: names must be less than 19 characters long");
@@ -267,7 +268,7 @@ exports.commands = {
 	viewautobans: 'viewblacklist',
 	vab: 'viewblacklist',
 	viewblacklist: function(arg, by, room, con) {
-		if (this.canUse('blacklist', room, by)) {
+		if (this.canUse('autoban', room, by)) {
 			var text = '';
 			if (this.settings['blacklist'] && this.settings.blacklist[room] && this.settings.blacklist[room].length > 0) {
 				var blacklist = this.settings.blacklist[room].sort();
