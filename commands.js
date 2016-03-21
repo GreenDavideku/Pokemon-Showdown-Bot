@@ -2028,6 +2028,53 @@ exports.commands = {
 		}
 	},
 	
+	insult: function(arg, by, room, con) {
+		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
+			var sentences = [
+				[
+					"the dude who got shit on by bisharp on ladder then changed his rotom to garchomp. ",
+					"guess u could have gone all the way after critting me 4 times in our dpp tour playoffs game but hey not quite there yet in terms of skill. ",
+					"bet u played more mons than me in the last 2 weeks alone good job \"not caring\". ",
+					"if i cared about mons half as much as u think i do id jerk off to the unbelievable thought of you winning once in your life. ",
+					"i hate when dumbass niggas like you make retarded moves and choke the whole fucking game away that way. ",
+					"i swear to fucking god how can a single person be this lucky after getting played all the fucking way. ",
+					"no person using a team that shit and standard and fucking horrible in ORAS should ever be gaining any of my respect whatsoever because its disgusting and a waste of time. ",
+					"arent u the guy whose friend got fucking trashbagged by me in what 12 minutes? while he cheered for him. ",
+					"something is very wrong with your head to begin with, seeing how you can't even handle a timer consisting of 300 seconds during a game for children and actually start to hyperventilate"
+				],
+				[
+					"Maybe you should shut the fuck up instead of calling out other people, ",
+					"Get real ",
+					"Why are u still posting ",
+					"You almost ruined our season by just existing ",
+					"You are a mere slave ",
+					"I am here to show Smogon how fucking awful you are at everything ",
+					"You're useless for everything everywhere on Smogon ",
+					"I wish the people i played werent actually worthless ",
+					"Die in a ditch and dont ever mention my name again ",
+					"This felt like the special olympics of oras "
+				],
+				[
+					"you nuthugger.",
+					"you dumbass babboon.",
+					"you glorified heap of trash.",
+					"you filth.",
+					"you stinky italian.",
+					"you worthless protoplasm.",
+					"you random grinch.",
+					"you useless sack of shit.",
+					"you no-one on a site that means nothing.",
+					"you literal trash",
+				]
+			];
+			var text = "Oh, it's " + arg + ", ";
+			text += sentences[0][Math.floor(Math.random() * sentences[0].length)];
+			text += sentences[1][Math.floor(Math.random() * sentences[1].length)];
+			text += sentences[2][Math.floor(Math.random() * sentences[2].length)];
+			return this.say(con, room, text);
+		}
+	},
+	
 	aq: 'addquote',
 	addquote: function(arg, by, room, con) {
 		if (this.canUse('spamadmin', room, by)) {
