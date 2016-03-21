@@ -128,7 +128,6 @@ exports.commands = {
 			broadcast: 1,
 			spam: 1,
 			spamadmin: 1,
-			blacklist: 1,
 			autoban: 1,
 			banword: 1
 		};
