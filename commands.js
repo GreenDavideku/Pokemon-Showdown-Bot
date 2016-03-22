@@ -1460,24 +1460,6 @@ exports.commands = {
 		}
 	},
 	
-	renames: 'showrenames',
-	showrenames: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "https://greasyfork.org/en/scripts/7339");
-		}
-	},
-	youtubelinktitle: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "https://greasyfork.org/en/scripts/413");
-		}
-	},
-	icons: 'userlisticons',
-	iconsuserlist: 'userlisticons',
-	userlisticons: function(arg, by, room, con) {
-		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
-			return this.say(con, room, "http://www.smogon.com/forums/threads/userlist-icons-stylish.3551505/");
-		}
-	},
 	breakmyteam: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
 			return this.say(con, room, "https://dl.dropbox.com/u/9207945/rmt.html");
