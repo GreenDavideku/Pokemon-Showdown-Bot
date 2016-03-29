@@ -128,7 +128,7 @@ if (!fs.existsSync('./config.js')) {
 }
 
 global.config = require('./config.js');
-global.cleanChatData = function(chatData) {
+global.cleanChatData = function(chatData, restart) {
 	for (var user in chatData) {
 		var deleteUser = true;
 		for (var room in chatData[user]) {
@@ -144,7 +144,7 @@ global.cleanChatData = function(chatData) {
 			}
 			newTimes.sort();
 			chatData[user][room].times = newTimes;
-			if (chatData[user][room].points > 0) chatData[user][room].points--;
+			if (restart && chatData[user][room].points > 0) chatData[user][room].points--;
 		}
 		if (deleteUser) delete chatData[user];
 	}
