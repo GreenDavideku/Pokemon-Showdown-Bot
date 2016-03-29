@@ -331,7 +331,7 @@ exports.commands = {
 				}
 			}
 			else {
-				return this.say(con, room, "/pm " + by + ", Banword list is empty", true);
+				return this.say(con, room, "Banword list is empty");
 			}
 			this.uploadToHastebin(con, room, by, "Banword list: " + text, true);
 		}
