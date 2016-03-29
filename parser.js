@@ -224,6 +224,7 @@ exports.parse = {
 					send(connection, cmds);
 				}
 
+				self.settings.chatData = cleanChatData(self.settings.chatData, true);
 				this.chatDataTimer = setInterval(
 					function() {self.settings.chatData = cleanChatData(self.settings.chatData);},
 					30*60*1000
