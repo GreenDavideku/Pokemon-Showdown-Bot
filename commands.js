@@ -273,7 +273,7 @@ exports.commands = {
 			var text = '';
 			if (this.settings['blacklist'] && this.settings.blacklist[room] && this.settings.blacklist[room].length > 0) {
 				var blacklist = this.settings.blacklist[room].sort();
-				for (var i in blacklist) {
+				for (var i = 0; i < blacklist.length; i++) {
 					text += blacklist[i] + '\n';
 				}
 			}
@@ -326,7 +326,7 @@ exports.commands = {
 			var text = '';
 			if (this.settings['banwords'] && this.settings.banwords[room] && this.settings.banwords[room].length > 0) {
 				var banwords = this.settings.banwords[room].sort();
-				for (var i in banwords) {
+				for (var i = 0; i < banwords.length; i++) {
 					text += banwords[i] + '\n';
 				}
 			}
@@ -2076,6 +2076,8 @@ exports.commands = {
 			if (this.settings['quotes'] && this.settings.quotes[room]) {
 				arg = Number(arg);
 				if (!isNaN(arg) && arg % 1 === 0) {
+					if (arg === 404) return this.say(con, room, "Error 404 - Quote not found");
+					if (arg > 404) arg--;
 					var quotes = this.settings.quotes[room];
 					if (quotes[arg]) {
 						quotes.splice(arg, 1);
@@ -2104,6 +2106,8 @@ exports.commands = {
 				argN = Number(arg);
 				var quotes = this.settings.quotes[room];
 				if (arg !== '' && !isNaN(argN) && argN % 1 === 0) {
+					if (argN === 404) return this.say(con, room, "Error 404 - Quote not found");
+					if (argN > 404) argN--;
 					if (quotes[argN]) {
 						text = quotes[argN];
 					}
@@ -2126,8 +2130,8 @@ exports.commands = {
 			var text = '';
 			if (this.settings['quotes'] && this.settings.quotes[room]) {
 				var quotes = this.settings.quotes[room];
-				for (var i in quotes) {
-					text += i + '. ' + quotes[i] + '\n\n';
+				for (var i = 0; i < quotes.length; i++) {
+					text += (i < 404 ? i : i + 1) + '. ' + quotes[i] + '\n\n';
 				}
 			}
 			else {
