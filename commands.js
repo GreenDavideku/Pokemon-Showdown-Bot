@@ -1540,6 +1540,12 @@ exports.commands = {
 			return this.say(con, room, "basta con le pupazzate");
 		}
 	},
+	rospe: 'r0spe',
+	r0spe: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "buondì");
+		}
+	},
 	silver: 'silver97',
 	silver97: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
