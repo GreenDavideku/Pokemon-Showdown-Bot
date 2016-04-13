@@ -418,12 +418,12 @@ exports.parse = {
 			var modSettings = useDefault ? null : this.settings['modding'][room];
 
 			// moderation for banned words
-			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 3) {
+			if (useDefault || modSettings['bannedwords'] !== false && pointVal < 2) {
 				var banphraseSettings = this.settings.banwords;
 				var bannedPhrases = !!banphraseSettings ? (banphraseSettings[room] || []) : [];
 				for (var i = 0; i < bannedPhrases.length; i++) {
 					if (msg.toLowerCase().indexOf(bannedPhrases[i]) > -1) {
-						pointVal = 3;
+						pointVal = 2;
 						muteMessage = ', Questa frase/parola è bannata';
 						break;
 					}
