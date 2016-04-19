@@ -1528,6 +1528,16 @@ exports.commands = {
 			return this.say(con, room, "no Maria io esco");
 		}
 	},
+	mister: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "Master");
+		}
+	},
+	mistercantiere: function(arg, by, room, con) {
+		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
+			return this.say(con, room, "MasterCantiere");
+		}
+	},
 	azyz: 'oizys',
 	oizys: function(arg, by, room, con) {
 		if (this.canUse('broadcast', room, by) || room.charAt(0) === ',') {
