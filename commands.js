@@ -1664,8 +1664,7 @@ exports.commands = {
 		if (this.canUse('spam', room, by) || room.charAt(0) === ',') {
 			if (Date.now() - lastshitpost < 40000) return this.say(con, room, "Aspetta");
 			var message = arg.replace("à","a").replace("è","e").replace("é","e").replace("ì","i").replace("ò","o").replace("ù","u")
-							 .replace("À","A").replace("È","E").replace("É","E").replace("Ì","I").replace("Ò","o").replace("Ù","U")
-							 .replace(/[^a-zA-Z0-9 /]/g,"");
+							 .replace("À","A").replace("È","E").replace("É","E").replace("Ì","I").replace("Ò","o").replace("Ù","U");
 			if (message.length > 12) return this.say(con, room, "Testo troppo lungo");
 			lastshitpost = Date.now();
 			var letters = {
