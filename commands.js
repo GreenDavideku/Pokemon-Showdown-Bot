@@ -1665,11 +1665,11 @@ exports.commands = {
 			if (room.charAt(0) !== ',') {
 				if (!lastshitpost[room]) lastshitpost[room] = 0;
 				if (Date.now() - lastshitpost[room] < 40000) return this.say(con, room, "Aspetta");
-				lastshitpost[room] = Date.now();
 			}
 			var message = arg.replace("à","a").replace("è","e").replace("é","e").replace("ì","i").replace("ò","o").replace("ù","u")
 							 .replace("À","A").replace("È","E").replace("É","E").replace("Ì","I").replace("Ò","o").replace("Ù","U");
 			if (message.length > 12) return this.say(con, room, "Testo troppo lungo");
+			if (room.charAt(0) !== ',') lastshitpost[room] = Date.now();
 			var letters = {
 				a: [
 					"┌─┐",
