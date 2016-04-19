@@ -1989,25 +1989,21 @@ exports.commands = {
 			var text0 = "";
 			var text1 = "";
 			var text2 = "";
-			if (message != "") {
-				message = message.split('')
-				for (var i in message) {
-					if (letters[message[i]]) {
-						if (i > 0) {
-							text0 += "░";
-							text1 += "░";
-							text2 += "░";
-						}
-						text0 += letters[message[i]][0];
-						text1 += letters[message[i]][1];
-						text2 += letters[message[i]][2];
+			
+			if (message === "") message = "SHITPOST";
+			
+			message = message.split('')
+			for (var i in message) {
+				if (letters[message[i]]) {
+					if (i > 0) {
+						text0 += "░";
+						text1 += "░";
+						text2 += "░";
 					}
+					text0 += letters[message[i]][0];
+					text1 += letters[message[i]][1];
+					text2 += letters[message[i]][2];
 				}
-			}
-			else {
-				text0 = "╔═╗░╗░╔░╦░╔╦╗░╔═╗░╔═╗░╔═╗░╔╦╗";
-				text1 = "╚═╗░╠═╣░║░░║░░╠═╝░║░║░╚═╗░░║░";
-				text2 = "╚═╝░╝░╚░╩░░╩░░╝░░░╚═╝░╚═╝░░╩░";
 			}
 			
 			this.say(con, room, text0);
