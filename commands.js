@@ -2131,7 +2131,7 @@ exports.commands = {
 					"┌┐",
 					"└┘",
 					"░░"
-				]				]
+				]
 			};
 			var text0 = "";
 			var text1 = "";
