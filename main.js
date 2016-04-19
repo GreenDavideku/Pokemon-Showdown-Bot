@@ -108,7 +108,7 @@ var sys = require('sys');
 global.colors = require('colors');
 global.shuffle = require('knuth-shuffle').knuthShuffle;
 
-global.lastshitpost = 0;
+global.lastshitpost = {};
 global.lastmessagetournotif = 0;
 
 console.log('------------------------------------'.yellow);
